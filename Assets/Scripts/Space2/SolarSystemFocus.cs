@@ -1,74 +1,98 @@
+using System;
 using UnityEngine;
 
 public class SolarSystemFocus : MonoBehaviour
 {
+    public static SolarSystemFocus Instance;
     public Transform solarRoot;
 
     public float zoomSpeed = 2f;
-    public float targetScale = 10f;
-    public float normalScale = 1f;
+    public float targetScale = 100f;
+    public float modelAppearScale = 10f;
 
-    Transform pivot;
+    public Transform pivot;
+    bool focusing;
 
-    bool zoomingIn;
-    bool zoomingOut;
+    PlanetVisual planetVisual;
+    
+    public XRScaleKnobDelta scaleKnob;
 
-    Vector3 pivotOffset;
-
-    public OvalRing[] orbits;
-
-    public void FocusPlanet(Transform planet)
+    private void Awake()
     {
-        pivot = planet;
-
-        pivotOffset = solarRoot.position - planet.position;
-
-        zoomingIn = true;
-        zoomingOut = false;
+        Instance = this;
+        pivot = transform;
     }
 
-    public void ZoomOut()
+    public void FocusPlanet(Transform planet, PlanetVisual visual)
     {
-        zoomingOut = true;
-        zoomingIn = false;
+        planetVisual = visual;
+
+        // dùng hàm ChangePivot
+        Debug.Log(planet.name);
+        pivot = ChangePivot(solarRoot, planet.position);
+        scaleKnob.ChangePivot(pivot);
+        focusing = true;
     }
 
     void Update()
     {
-        if (zoomingIn)
-        {
-            Zoom(targetScale);
-        }
+        if (!focusing) return;
 
-        if (zoomingOut)
-        {
-            Zoom(normalScale);
-        }
+        float scale = Mathf.Lerp(
+            pivot.localScale.x,
+            targetScale,
+            Time.deltaTime * zoomSpeed
+        );
+
+        pivot.localScale = Vector3.one * scale;
+
+        if (scale > modelAppearScale)
+            planetVisual.ShowModel();
+        else
+            planetVisual.ShowMarker();
+
+        if (Mathf.Abs(scale - targetScale) < 0.01f)
+            focusing = false;
     }
 
-    void Zoom(float target)
+    public Transform ChangePivot(Transform objectToMove, Vector3 newPivotPosition)
     {
-        float current = solarRoot.localScale.x;
+        Transform pivot;
 
-        float newScale = Mathf.Lerp(current, target, Time.deltaTime * zoomSpeed);
-
-        solarRoot.localScale = Vector3.one * newScale;
-
-        if (pivot != null)
+        // nếu đã có pivot
+        if (objectToMove.parent != null && objectToMove.parent.name.Contains("_Pivot"))
         {
-            solarRoot.position = pivot.position + pivotOffset * newScale;
+            pivot = objectToMove.parent;
+
+            Transform oldParent = pivot.parent;
+
+            // tạm tháo object ra
+            objectToMove.SetParent(oldParent);
+
+            // di chuyển pivot
+            pivot.position = newPivotPosition;
+            pivot.rotation = objectToMove.rotation;
+
+            // gắn lại object vào pivot
+            objectToMove.SetParent(pivot);
+        }
+        else
+        {
+            // Create new pivot object (giữ nguyên logic cũ)
+            GameObject pivotObj = new GameObject(objectToMove.name + "_Pivot");
+            pivot = pivotObj.transform;
+
+            pivot.position = newPivotPosition;
+            pivot.rotation = objectToMove.rotation;
+
+            Transform oldParent = objectToMove.parent;
+
+            if (oldParent != null)
+                pivot.SetParent(oldParent);
+
+            objectToMove.SetParent(pivot);
         }
 
-        UpdateOrbitVisibility(newScale);
-    }
-
-    void UpdateOrbitVisibility(float scale)
-    {
-        float t = Mathf.InverseLerp(1f, targetScale, scale);
-
-        foreach (var orbit in orbits)
-        {
-            orbit.SetVisibility(1f - t);
-        }
+        return pivot;
     }
 }

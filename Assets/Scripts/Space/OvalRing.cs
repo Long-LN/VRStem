@@ -1,7 +1,7 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-[RequireComponent(typeof(MeshCollider))]
 public class OvalRing : MonoBehaviour
 {
     [Header("Ellipse Shape (Base Shape)")]
@@ -12,16 +12,21 @@ public class OvalRing : MonoBehaviour
     [Range(10, 200)]
     public int segments = 100;
     public float lineWidth = 0.05f;
+    
+    private SolarSystemFocus solarSystemFocus;
+
+    public float worldRadiusX;
+    public float worldRadiusY;
 
     private LineRenderer lineRenderer;
-    private MeshCollider meshCollider;
+    // private MeshCollider meshCollider;
 
     private Vector3[] points;
 
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        meshCollider = GetComponent<MeshCollider>();
+        // meshCollider = GetComponent<MeshCollider>();
 
         lineRenderer.loop = true;
         lineRenderer.useWorldSpace = false;
@@ -30,9 +35,16 @@ public class OvalRing : MonoBehaviour
 
     void Start()
     {
+        solarSystemFocus = SolarSystemFocus.Instance;
         DrawOval();
     }
-    
+
+    private void Update()
+    {
+        worldRadiusX = solarSystemFocus.solarRoot.transform.lossyScale.x;
+        worldRadiusY = solarSystemFocus.solarRoot.transform.lossyScale.y;
+    }
+
     public Vector3 GetPoint(float angle)
     {
         float x = Mathf.Cos(angle) * radiusX;
@@ -62,28 +74,21 @@ public class OvalRing : MonoBehaviour
         }
     }
     
-
-    // SCALE METHOD (tối ưu)
-    public void SetScale(float scale)
-    {
-        transform.localScale = new Vector3(scale, 1f, scale);
-    }
-    
-    [ContextMenu("Rebuild Ring")]
-    public void RebuildRing()
-    {
-        if (lineRenderer == null)
-            lineRenderer = GetComponent<LineRenderer>();
-
-        if (meshCollider == null)
-            meshCollider = GetComponent<MeshCollider>();
-
-        lineRenderer.loop = true;
-        lineRenderer.useWorldSpace = false;
-        lineRenderer.widthMultiplier = lineWidth;
-
-        DrawOval();
-    }
+    // [ContextMenu("Rebuild Ring")]
+    // public void RebuildRing()
+    // {
+    //     if (lineRenderer == null)
+    //         lineRenderer = GetComponent<LineRenderer>();
+    //
+    //     if (meshCollider == null)
+    //         meshCollider = GetComponent<MeshCollider>();
+    //
+    //     lineRenderer.loop = true;
+    //     lineRenderer.useWorldSpace = false;
+    //     lineRenderer.widthMultiplier = lineWidth;
+    //
+    //     DrawOval();
+    // }
 
     public void SetVisibility(float alpha)
     {
