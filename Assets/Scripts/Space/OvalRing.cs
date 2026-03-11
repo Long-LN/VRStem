@@ -1,9 +1,10 @@
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(MeshCollider))]
 public class OvalRing : MonoBehaviour
 {
-    [Header("Ellipse Radius")]
+    [Header("Ellipse Shape (Base Shape)")]
     public float radiusX = 2f;
     public float radiusY = 1f;
 
@@ -13,10 +14,15 @@ public class OvalRing : MonoBehaviour
     public float lineWidth = 0.05f;
 
     private LineRenderer lineRenderer;
+    private MeshCollider meshCollider;
+
+    private Vector3[] points;
 
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        meshCollider = GetComponent<MeshCollider>();
+
         lineRenderer.loop = true;
         lineRenderer.useWorldSpace = false;
         lineRenderer.widthMultiplier = lineWidth;
@@ -26,23 +32,19 @@ public class OvalRing : MonoBehaviour
     {
         DrawOval();
     }
-
-    // void Update()
-    // {
-    //     // Re-draw every frame so radius can change at runtime
-    //     DrawOval();
-    // }
     
-    public void SetUniformRadius(float r)
+    public Vector3 GetPoint(float angle)
     {
-        radiusX = r;
-        radiusY = r;
-        DrawOval();
+        float x = Mathf.Cos(angle) * radiusX;
+        float z = Mathf.Sin(angle) * radiusY;
+
+        return transform.TransformPoint(new Vector3(x, 0, z));
     }
 
-    public void DrawOval()
+    void DrawOval()
     {
         lineRenderer.positionCount = segments;
+        points = new Vector3[segments];
 
         float angle = 0f;
 
@@ -51,17 +53,56 @@ public class OvalRing : MonoBehaviour
             float x = Mathf.Cos(angle) * radiusX;
             float z = Mathf.Sin(angle) * radiusY;
 
-            lineRenderer.SetPosition(i, new Vector3(x, 0, z));
+            Vector3 pos = new Vector3(x, 0, z);
+            points[i] = pos;
+
+            lineRenderer.SetPosition(i, pos);
 
             angle += (2 * Mathf.PI) / segments;
         }
     }
+    
 
-    // Call this from other scripts to change size
-    public void SetRadius(float newX, float newY)
+    // SCALE METHOD (tối ưu)
+    public void SetScale(float scale)
     {
-        radiusX = newX;
-        radiusY = newY;
+        transform.localScale = new Vector3(scale, 1f, scale);
+    }
+    
+    [ContextMenu("Rebuild Ring")]
+    public void RebuildRing()
+    {
+        if (lineRenderer == null)
+            lineRenderer = GetComponent<LineRenderer>();
+
+        if (meshCollider == null)
+            meshCollider = GetComponent<MeshCollider>();
+
+        lineRenderer.loop = true;
+        lineRenderer.useWorldSpace = false;
+        lineRenderer.widthMultiplier = lineWidth;
+
         DrawOval();
     }
+
+    public void SetVisibility(float alpha)
+    {
+        Color c = lineRenderer.startColor;
+        c.a = alpha;
+
+        lineRenderer.startColor = c;
+        lineRenderer.endColor = c;
+    }
+    
+    public float GetRadius()
+    {
+        float scaleX = transform.lossyScale.x;
+        float scaleZ = transform.lossyScale.z;
+
+        float rX = radiusX * scaleX;
+        float rY = radiusY * scaleZ;
+
+        return (rX + rY) * 0.5f;
+    }
 }
+
