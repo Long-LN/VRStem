@@ -45,8 +45,10 @@ public class SolarSystemFocus : MonoBehaviour
         );
 
         pivot.localScale = Vector3.one * scale;
+        
+        // Debug.Log(scale);
 
-        if (scale > modelAppearScale)
+        if (scale >= modelAppearScale)
             planetVisual.ShowModel();
         else
             planetVisual.ShowMarker();

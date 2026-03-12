@@ -10,7 +10,7 @@ public class XRScaleKnobDelta : XRBaseInteractable
 
     [Header("Scale Limits")]
     public float minScale = 0.5f;
-    public float maxScale = 3f;
+    public float maxScale = 10f;
 
     [Header("Speed")]
     public float scaleSpeed = 0.01f;

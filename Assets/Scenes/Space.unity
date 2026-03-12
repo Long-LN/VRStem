@@ -3036,7 +3036,6 @@ GameObject:
   m_Component:
   - component: {fileID: 472490031}
   - component: {fileID: 472490034}
-  - component: {fileID: 472490033}
   - component: {fileID: 472490032}
   m_Layer: 6
   m_Name: UranusOrbit
@@ -3078,28 +3077,6 @@ MonoBehaviour:
   lineWidth: 0.001
   worldRadiusX: 0
   worldRadiusY: 0
---- !u!64 &472490033
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 472490030}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 962798307}
 --- !u!120 &472490034
 LineRenderer:
   serializedVersion: 3
@@ -3252,7 +3229,7 @@ LineRenderer:
   - {x: 49.492153, y: 0, z: -3.1067731}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.05
+    widthMultiplier: 0.001
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -3318,7 +3295,6 @@ GameObject:
   m_Component:
   - component: {fileID: 524266797}
   - component: {fileID: 524266800}
-  - component: {fileID: 524266799}
   - component: {fileID: 524266798}
   m_Layer: 6
   m_Name: NeptuneOrbit
@@ -3360,28 +3336,6 @@ MonoBehaviour:
   lineWidth: 0.001
   worldRadiusX: 0
   worldRadiusY: 0
---- !u!64 &524266799
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 524266796}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2046268404}
 --- !u!120 &524266800
 LineRenderer:
   serializedVersion: 3
@@ -3534,7 +3488,7 @@ LineRenderer:
   - {x: 77.546684, y: 0, z: -4.878036}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.05
+    widthMultiplier: 0.001
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -3831,7 +3785,6 @@ GameObject:
   m_Component:
   - component: {fileID: 596957216}
   - component: {fileID: 596957219}
-  - component: {fileID: 596957218}
   - component: {fileID: 596957217}
   m_Layer: 6
   m_Name: StaturnOrbit
@@ -3873,28 +3826,6 @@ MonoBehaviour:
   lineWidth: 0.001
   worldRadiusX: 0
   worldRadiusY: 0
---- !u!64 &596957218
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 596957215}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 33328654}
 --- !u!120 &596957219
 LineRenderer:
   serializedVersion: 3
@@ -4047,7 +3978,7 @@ LineRenderer:
   - {x: 24.591381, y: 0, z: -1.5439683}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.05
+    widthMultiplier: 0.001
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -4371,7 +4302,6 @@ GameObject:
   m_Component:
   - component: {fileID: 637960301}
   - component: {fileID: 637960304}
-  - component: {fileID: 637960303}
   - component: {fileID: 637960302}
   m_Layer: 6
   m_Name: MarsOrbit
@@ -4413,28 +4343,6 @@ MonoBehaviour:
   lineWidth: 0.001
   worldRadiusX: 0
   worldRadiusY: 0
---- !u!64 &637960303
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637960300}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1858320908}
 --- !u!120 &637960304
 LineRenderer:
   serializedVersion: 3
@@ -4587,7 +4495,7 @@ LineRenderer:
   - {x: 3.932226, y: 0, z: -0.24487501}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.05
+    widthMultiplier: 0.001
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -4670,8 +4578,8 @@ Transform:
   m_GameObject: {fileID: 646390821}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.28, y: 1.4985669, z: 23.96}
-  m_LocalScale: {x: 0.013342934, y: 0.013342934, z: 0.013342934}
+  m_LocalPosition: {x: -0.31, y: 2.54, z: 6.85}
+  m_LocalScale: {x: 0.007, y: 0.007, z: 0.007}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 788239679}
@@ -4743,9 +4651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 651192728}
   - component: {fileID: 651192731}
-  - component: {fileID: 651192730}
   - component: {fileID: 651192729}
-  - component: {fileID: 651192732}
   m_Layer: 6
   m_Name: MercuryOrbit
   m_TagString: Untagged
@@ -4786,28 +4692,6 @@ MonoBehaviour:
   lineWidth: 0.001
   worldRadiusX: 0
   worldRadiusY: 0
---- !u!64 &651192730
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651192727}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 834208417}
 --- !u!120 &651192731
 LineRenderer:
   serializedVersion: 3
@@ -4960,7 +4844,7 @@ LineRenderer:
   - {x: 0.99802685, y: 0, z: -0.061532695}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.05
+    widthMultiplier: 0.001
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -5016,33 +4900,6 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &651192732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651192727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a2d7d89889b4d94fa1f8d6fe49788e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.UI.LazyFollow
-  m_Target: {fileID: 1591226599}
-  m_TargetOffset: {x: 0, y: 0, z: 0.5}
-  m_FollowInLocalSpace: 0
-  m_ApplyTargetInLocalSpace: 0
-  m_MovementSpeed: 6
-  m_MovementSpeedVariancePercentage: 0.25
-  m_SnapOnEnable: 1
-  m_PositionFollowMode: 1
-  m_MinDistanceAllowed: 0.01
-  m_MaxDistanceAllowed: 0.3
-  m_TimeUntilThresholdReachesMaxDistance: 3
-  m_RotationFollowMode: 1
-  m_MinAngleAllowed: 0.1
-  m_MaxAngleAllowed: 5
-  m_TimeUntilThresholdReachesMaxAngle: 3
 --- !u!1 &659388844
 GameObject:
   m_ObjectHideFlags: 0
@@ -5553,7 +5410,7 @@ Transform:
   m_GameObject: {fileID: 877103297}
   serializedVersion: 2
   m_LocalRotation: {x: -0.63142043, y: -0, z: -0, w: 0.7754407}
-  m_LocalPosition: {x: -1.1337395, y: -2.2, z: 0.04206848}
+  m_LocalPosition: {x: -1.12, y: 0.12, z: -1.4}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -5891,7 +5748,7 @@ Transform:
   m_GameObject: {fileID: 945225703}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -41.28471, y: 2.4, z: 48.05957}
+  m_LocalPosition: {x: -42.69, y: 0, z: 47.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7296,7 +7153,7 @@ MonoBehaviour:
   knobVisual: {fileID: 1136771355}
   targetObject: {fileID: 877103298}
   minScale: 0.5
-  maxScale: 3
+  maxScale: 10
   scaleSpeed: 0.01
 --- !u!114 &1136771357
 MonoBehaviour:
@@ -7335,7 +7192,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1144128268}
   - component: {fileID: 1144128271}
-  - component: {fileID: 1144128270}
   - component: {fileID: 1144128269}
   m_Layer: 6
   m_Name: JupiterOrbit
@@ -7377,28 +7233,6 @@ MonoBehaviour:
   lineWidth: 0.001
   worldRadiusX: 0
   worldRadiusY: 0
---- !u!64 &1144128270
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1144128267}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1104883492}
 --- !u!120 &1144128271
 LineRenderer:
   serializedVersion: 3
@@ -7551,7 +7385,7 @@ LineRenderer:
   - {x: 13.413481, y: 0, z: -0.8419933}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.05
+    widthMultiplier: 0.001
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -9771,11 +9605,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4886458294744205938, guid: 0cad1f309d9fae440b0a183a1df9c826, type: 3}
   m_PrefabInstance: {fileID: 1558118672}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1591226599 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
-  m_PrefabInstance: {fileID: 1756628753}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1598700710 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
@@ -10325,7 +10154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1729468628
 Transform:
   m_ObjectHideFlags: 0
@@ -10336,7 +10165,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.988, y: -0.014691, z: 25.555}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 788239679}
@@ -11257,7 +11086,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1924011667}
   - component: {fileID: 1924011670}
-  - component: {fileID: 1924011669}
   - component: {fileID: 1924011668}
   m_Layer: 6
   m_Name: VenusOrbit
@@ -11299,28 +11127,6 @@ MonoBehaviour:
   lineWidth: 0.001
   worldRadiusX: 0
   worldRadiusY: 0
---- !u!64 &1924011669
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1924011666}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1812133945}
 --- !u!120 &1924011670
 LineRenderer:
   serializedVersion: 3
@@ -11473,7 +11279,7 @@ LineRenderer:
   - {x: 1.8663102, y: 0, z: -0.11741443}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.05
+    widthMultiplier: 0.001
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -11762,7 +11568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SolarSystemFocus
   solarRoot: {fileID: 877103298}
   zoomSpeed: 2
-  targetScale: 10
+  targetScale: 11
   modelAppearScale: 10
   pivot: {fileID: 0}
   scaleKnob: {fileID: 1136771356}
@@ -11774,6 +11580,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1680501586, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 1680501586, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1680501587, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -11893,7 +11707,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2013228115}
   - component: {fileID: 2013228118}
-  - component: {fileID: 2013228117}
   - component: {fileID: 2013228116}
   m_Layer: 6
   m_Name: EarthOrbit
@@ -11935,28 +11748,6 @@ MonoBehaviour:
   lineWidth: 0.001
   worldRadiusX: 0
   worldRadiusY: 0
---- !u!64 &2013228117
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2013228114}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1958239109}
 --- !u!120 &2013228118
 LineRenderer:
   serializedVersion: 3
@@ -12109,7 +11900,7 @@ LineRenderer:
   - {x: 2.5749092, y: 0, z: -0.16199423}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.05
+    widthMultiplier: 0.001
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -12989,7 +12780,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.988, y: -0.014691, z: 25.555}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1974619753}
@@ -13110,6 +12901,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &1974092487985698376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9114138457613543821}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.2599077, y: -2.1854782, z: 21.667435}
+  m_LocalScale: {x: 16.312424, y: 16.312424, z: 16.312424}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2109763906022388088
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -13316,6 +13122,14 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2730358004931163090}
   m_Mesh: {fileID: -3768719051437600471, guid: eea2635c04feb9e4b9db2c56e5b092b0, type: 3}
+--- !u!33 &3675285637923734544
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9114138457613543821}
+  m_Mesh: {fileID: -6241814027959769053, guid: f4f925161ee0efe4fb08cf599b98f1bf, type: 3}
 --- !u!1 &3738926761493969051
 GameObject:
   m_ObjectHideFlags: 0
@@ -13721,6 +13535,56 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!23 &5673073696194543232
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9114138457613543821}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 8470811605121966548, guid: f4f925161ee0efe4fb08cf599b98f1bf, type: 3}
+  - {fileID: 6482279673083833259, guid: f4f925161ee0efe4fb08cf599b98f1bf, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &5673325780659599652
 Transform:
   m_ObjectHideFlags: 0
@@ -14264,8 +14128,6 @@ GameObject:
   - component: {fileID: 1490597468637952225}
   - component: {fileID: 8010903799234064837}
   - component: {fileID: 4240397006319240925}
-  - component: {fileID: 8010903799234064839}
-  - component: {fileID: 8010903799234064838}
   - component: {fileID: 8010903799234064840}
   - component: {fileID: 8010903799234064841}
   m_Layer: 0
@@ -14614,96 +14476,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7541427967256240185}
   m_Mesh: {fileID: 6364147605401814552, guid: 03a350ea581cb2445ae37875862b7783, type: 3}
---- !u!114 &8010903799234064838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7541427967256240185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dac6f5e68839fa94a83d308c8db0d97d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlanetSelectable
-  orbit: {fileID: 637960302}
-  focusSystem: {fileID: 1974619754}
-  originScale: 0
-  visual: {fileID: 0}
---- !u!114 &8010903799234064839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7541427967256240185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
-  m_InteractionLayers:
-    m_Bits: 1
-  m_DistanceCalculationMode: 1
-  m_SelectMode: 0
-  m_FocusMode: 1
-  m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 0
-  m_AllowGazeSelect: 0
-  m_OverrideGazeTimeToSelect: 0
-  m_GazeTimeToSelect: 0.5
-  m_OverrideTimeToAutoDeselectGaze: 0
-  m_TimeToAutoDeselectGaze: 3
-  m_AllowGazeAssistance: 0
-  m_FirstHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FirstSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FirstFocusEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastFocusExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FocusEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FocusExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Activated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Deactivated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_StartingInteractionStrengthFilters: []
-  m_AutoFindParentInteractableInHierarchy: 0
-  m_ParentInteractableObject: {fileID: 0}
 --- !u!114 &8010903799234064840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15086,6 +14858,153 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1891662795658633972}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9114138457613543821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1974092487985698376}
+  - component: {fileID: 3675285637923734544}
+  - component: {fileID: 5673073696194543232}
+  - component: {fileID: 9114138457613543825}
+  - component: {fileID: 9114138457613543824}
+  - component: {fileID: 9114138457613543823}
+  - component: {fileID: 9114138457613543822}
+  m_Layer: 0
+  m_Name: Plane2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &9114138457613543822
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9114138457613543821}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.13967356
+  m_Center: {x: 0.010931395, y: -0.00097575784, z: 0.0049655586}
+--- !u!114 &9114138457613543823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9114138457613543821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac6f5e68839fa94a83d308c8db0d97d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlanetSelectable
+  orbit: {fileID: 637960302}
+  focusSystem: {fileID: 1974619754}
+  originScale: 0
+  visual: {fileID: 0}
+--- !u!114 &9114138457613543824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9114138457613543821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dced58479fe4cb3aec3fdf02d36656a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlanetVisual
+  marker: {fileID: 7541427967256240185}
+  model: {fileID: 1729468627}
+--- !u!114 &9114138457613543825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9114138457613543821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -15098,3 +15017,4 @@ SceneRoots:
   - {fileID: 978216186}
   - {fileID: 1747999465}
   - {fileID: 1136771355}
+  - {fileID: 1974092487985698376}

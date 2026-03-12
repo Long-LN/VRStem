@@ -15,5 +15,6 @@ public class PlanetVisual : MonoBehaviour
     {
         marker.SetActive(false);
         model.SetActive(true);
+        model.transform.position = marker.transform.position;
     }
 }
