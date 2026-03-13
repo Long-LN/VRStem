@@ -5,6 +5,8 @@ public class SolarSystemFocus : MonoBehaviour
 {
     public static SolarSystemFocus Instance;
     public Transform solarRoot;
+    
+    public PlanetController planetController;
 
     public float zoomSpeed = 2f;
     public float targetScale = 100f;
@@ -26,7 +28,7 @@ public class SolarSystemFocus : MonoBehaviour
     public void FocusPlanet(Transform planet, PlanetVisual visual)
     {
         planetVisual = visual;
-
+        planetController.SetPlanetZoom(visual);
         // dùng hàm ChangePivot
         Debug.Log(planet.name);
         pivot = ChangePivot(solarRoot, planet.position);

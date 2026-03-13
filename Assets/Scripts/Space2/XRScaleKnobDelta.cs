@@ -13,7 +13,7 @@ public class XRScaleKnobDelta : XRBaseInteractable
     public float maxScale = 10f;
 
     [Header("Speed")]
-    public float scaleSpeed = 0.01f;
+    public float scaleSpeed = 1f;
 
     private IXRSelectInteractor interactor;
     private float lastAngle;

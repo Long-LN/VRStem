@@ -10,10 +10,10 @@ public class Model : MonoBehaviour
     public float orbitStartScale;
     public float orbitEndScale;
     
-    public float distanceScale;
     
     private void Awake()
     {
+        targetScale = transform.localScale.x;
         orbitScale = SolarSystemFocus.Instance.pivot.localScale.x;
         orbitStartScale = SolarSystemFocus.Instance.modelAppearScale;
         orbitEndScale = SolarSystemFocus.Instance.targetScale;
@@ -22,7 +22,8 @@ public class Model : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentScale = ((orbitScale - orbitStartScale) / orbitEndScale) * targetScale;
+        // Debug.Log(SolarSystemFocus.Instance.pivot.localScale.x);
+        currentScale = ((SolarSystemFocus.Instance.pivot.localScale.x - orbitStartScale) / orbitEndScale) * targetScale;
         transform.localScale = currentScale * Vector3.one;
     }
 }
