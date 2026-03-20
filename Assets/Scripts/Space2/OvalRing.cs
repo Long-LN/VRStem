@@ -45,6 +45,11 @@ public class OvalRing : MonoBehaviour
         worldRadiusY = solarSystemFocus.solarRoot.transform.lossyScale.y;
     }
 
+    public void SetRingVisible(bool visible)
+    {
+        lineRenderer.enabled = visible;
+    }
+
     public Vector3 GetPoint(float angle)
     {
         float x = Mathf.Cos(angle) * radiusX;
@@ -107,4 +112,3 @@ public class OvalRing : MonoBehaviour
         return (rX + rY) * 0.5f;
     }
 }
-
