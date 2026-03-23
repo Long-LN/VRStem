@@ -104,7 +104,11 @@ public class Handle : MonoBehaviour
             // OnProgressChanged?.Invoke(progress);
             SolarSystemFocus.Instance.SetSystemScale(progress);
             if (isGrabbed)
-                SolarSystemFocus.Instance.focusing = false;
+            {
+                Debug.Log("Interupt");
+                SolarSystemFocus.Instance.focusIn = false;
+                SolarSystemFocus.Instance.focusOut = false;
+            }
         }
     }
     

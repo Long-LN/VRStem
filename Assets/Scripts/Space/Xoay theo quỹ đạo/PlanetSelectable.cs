@@ -6,9 +6,9 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class PlanetSelectable : MonoBehaviour
 {
     public OvalRing orbit;
-    public SolarSystemFocus focusSystem;
+    private SolarSystemFocus focusSystem;
+    private PlanetVisual visual;
     public float originScale;
-    public PlanetVisual visual;
 
     [Header("Orbit Settings")]
     public float orbitSpeed = 20f; // Tốc độ xoay quanh mặt trời (độ/giây)
@@ -21,13 +21,13 @@ public class PlanetSelectable : MonoBehaviour
     {
         originScale = transform.localScale.x;
         visual = GetComponent<PlanetVisual>();
-
         // Random góc ban đầu để các hành tinh không xếp hàng
         currentAngle = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
     }
 
     void Start()
     {
+        focusSystem = SolarSystemFocus.Instance;
         GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>()
             .selectEntered.AddListener(OnSelect);
     }

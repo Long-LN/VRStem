@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 
@@ -21,9 +22,15 @@ public class PlanetVisual : MonoBehaviour
     public GameObject infoPanel;                // Kéo InfoPanel vào đây
     public TextMeshProUGUI descriptionText;     // Kéo DescriptionText vào đây
 
+    private void Awake()
+    {
+        if(planetName == "")
+            planetName = gameObject.name;
+    }
+
     public void ShowMarker()
     {
-        Debug.Log(gameObject.name + "show marker");
+        Debug.Log(gameObject.name + " show marker");
         marker.SetActive(true);
         model.SetActive(false);
     }

@@ -26,7 +26,7 @@ public class PlanetQuiz : MonoBehaviour
     private string[] allPlanets = { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" };
 
     private string correctAnswer = "";
-    private HashSet<string> answeredPlanets = new HashSet<string>();
+    [SerializeField]private HashSet<string> answeredPlanets = new HashSet<string>();
 
     private PlanetVisual currentPlanetVisual = null;
 
@@ -168,5 +168,16 @@ public class PlanetQuiz : MonoBehaviour
         return options;
     }
 
-    public bool IsAnswered(string planetName) => answeredPlanets.Contains(planetName);
+    // public bool IsAnswered(string planetName) => 
+
+    public bool IsAnswered(string planetName)
+    {
+        Debug.Log(planetName + " is answered" + answeredPlanets.Contains(planetName));
+        foreach(var answer in answeredPlanets)
+        {
+            Debug.Log(answer);
+        }
+        return answeredPlanets.Contains(planetName);
+        
+    }
 }
