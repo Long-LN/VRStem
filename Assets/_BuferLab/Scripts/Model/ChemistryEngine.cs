@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// 1. DINH NGHIA CAU TRUC DU LIEU
 public enum ChemicalType { Acid, Base, Salt, Neutral }
 
 [System.Serializable]
@@ -9,18 +8,17 @@ public class ChemicalProfile
 {
     public string chemicalName;
     public ChemicalType type;
-    public bool isStrong; // True neu la Axit manh/Bazo manh
-    public float pKa_pKb; // Dung cho Axit yeu/Bazo yeu (Neu la chat manh thi de 0)
+    public bool isStrong; 
+    public float pKa_pKb; 
 }
 
 [System.Serializable]
 public class ReactionRule
 {
-    public string reactionName; // VD: Trung hoa HCl va NaOH
-    public string reactant1;    // VD: HCl
-    public string reactant2;    // VD: NaOH
-    public string product1;     // VD: NaCl
-    // Trong phien ban nay chung ta ap dung ty le phan ung 1:1 cho don gian
+    public string reactionName; 
+    public string reactant1;    
+    public string reactant2;    
+    public string product1;     
 }
 
 public class ChemistryEngine : MonoBehaviour
@@ -30,7 +28,7 @@ public class ChemistryEngine : MonoBehaviour
     [Header("Tu Dien Hoa Chat")]
     public List<ChemicalProfile> chemicalDatabase = new List<ChemicalProfile>();
 
-    [Header("So Tay Phan Ung")]
+    [Header("So Tay Phan Ung (Khong bat buoc voi Axit/Bazo manh)")]
     public List<ReactionRule> reactionRules = new List<ReactionRule>();
 
     void Awake()
@@ -43,46 +41,40 @@ public class ChemistryEngine : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void MixLiquids(LiquidData targetData, LiquidData incomingData, float addedVolume)
+    // DA SUA: Ghep truc tiep, khong tinh sai ty le pha loang
+    public void MixLiquids(LiquidData targetData, LiquidData incomingData)
     {
-        if (addedVolume <= 0f) return;
+        if (incomingData.volume <= 0f) return;
 
-        if (targetData.volume <= 0.01f || targetData.liquidName == "Empty")
+        if (targetData.volume <= 0.001f || targetData.liquidName == "Empty")
         {
             targetData.liquidName = incomingData.liquidName;
+            targetData.liquidColor = incomingData.liquidColor;
         }
         else if (targetData.liquidName != incomingData.liquidName)
         {
             targetData.liquidName = "Hon hop dung dich";
         }
 
-        float totalVolume = targetData.volume + addedVolume;
-        float incomingRatio = addedVolume / totalVolume;
+        float totalVolume = targetData.volume + incomingData.volume;
+        float incomingRatio = incomingData.volume / totalVolume;
         targetData.liquidColor = Color.Lerp(targetData.liquidColor, incomingData.liquidColor, incomingRatio);
 
-        float transferRatio = addedVolume / (incomingData.volume + addedVolume);
-        List<string> keys = new List<string>(incomingData.chemicalComponents.Keys);
-        foreach (string key in keys)
+        // Ghep toan bo Mol tu dong nuoc rot vao coc
+        foreach (var kvp in incomingData.chemicalComponents)
         {
-            float totalMoles = incomingData.chemicalComponents[key];
-            float molesTransferred = totalMoles * transferRatio;
-
-            targetData.AddChemical(key, molesTransferred);
-            incomingData.chemicalComponents[key] -= molesTransferred;
+            targetData.AddChemical(kvp.Key, kvp.Value);
         }
 
         targetData.volume = totalVolume;
-        
-        // Goi ham xu ly phan ung dong
         ProcessDynamicReactions(targetData);
     }
 
     private void ProcessDynamicReactions(LiquidData data)
     {
-        // 1. DUYET QUA TAT CA CAC LUAT PHAN UNG
+        // 1. Xu ly luat phan ung tu khai bao
         foreach (ReactionRule rule in reactionRules)
         {
-            // Kiem tra xem trong coc co du 2 chat tham gia khong
             if (data.chemicalComponents.ContainsKey(rule.reactant1) && data.chemicalComponents.ContainsKey(rule.reactant2))
             {
                 float n1 = data.chemicalComponents[rule.reactant1];
@@ -90,23 +82,44 @@ public class ChemistryEngine : MonoBehaviour
 
                 if (n1 > 0 && n2 > 0)
                 {
-                    // Tinh toan luong chat phan ung (Chat nao it hon se bi phan ung het truoc)
                     float reactedMoles = Mathf.Min(n1, n2);
-
-                    // Tru di luong chat da phan ung
                     data.chemicalComponents[rule.reactant1] -= reactedMoles;
                     data.chemicalComponents[rule.reactant2] -= reactedMoles;
-
-                    // Sinh ra chat san pham
-                    if (!string.IsNullOrEmpty(rule.product1))
-                    {
-                        data.AddChemical(rule.product1, reactedMoles);
-                    }
+                    if (!string.IsNullOrEmpty(rule.product1)) data.AddChemical(rule.product1, reactedMoles);
                 }
             }
         }
 
-        // 2. TINH TOAN PH MOI DUA TREN TU DIEN
+        // 2. TU DONG TRUNG HOA AXIT MANH VA BAZO MANH (Khac phuc loi lech pH)
+        List<string> strongAcids = new List<string>();
+        List<string> strongBases = new List<string>();
+
+        foreach (var kvp in data.chemicalComponents)
+        {
+            ChemicalProfile profile = chemicalDatabase.Find(x => x.chemicalName == kvp.Key);
+            if (profile != null && profile.isStrong)
+            {
+                if (profile.type == ChemicalType.Acid) strongAcids.Add(kvp.Key);
+                if (profile.type == ChemicalType.Base) strongBases.Add(kvp.Key);
+            }
+        }
+
+        foreach (string acid in strongAcids)
+        {
+            foreach (string baseChem in strongBases)
+            {
+                float aMoles = data.chemicalComponents.ContainsKey(acid) ? data.chemicalComponents[acid] : 0;
+                float bMoles = data.chemicalComponents.ContainsKey(baseChem) ? data.chemicalComponents[baseChem] : 0;
+                
+                if (aMoles > 1e-7f && bMoles > 1e-7f)
+                {
+                    float reactAmount = Mathf.Min(aMoles, bMoles);
+                    data.chemicalComponents[acid] -= reactAmount;
+                    data.chemicalComponents[baseChem] -= reactAmount;
+                }
+            }
+        }
+
         CalculateDynamicPH(data);
     }
 
@@ -115,15 +128,14 @@ public class ChemistryEngine : MonoBehaviour
         float volumeLiters = data.volume / 1000f;
         if (volumeLiters <= 0f) return;
 
-        float finalPH = 7.0f;
-        float epsilon = 1e-6f;
+        float epsilon = 1e-7f;
 
-        // Tim kiem xem trong coc dang con lai chat nao noi troi nhat
-        ChemicalProfile dominantAcid = null;
-        float acidConcentration = 0f;
-        ChemicalProfile dominantBase = null;
-        float baseConcentration = 0f;
+        ChemicalProfile strongAcid = null; float saConc = 0f;
+        ChemicalProfile strongBase = null; float sbConc = 0f;
+        ChemicalProfile weakAcid = null; float waConc = 0f;
+        ChemicalProfile weakBase = null; float wbConc = 0f;
 
+        // Phan loai cac chat dang co trong coc
         foreach (var kvp in data.chemicalComponents)
         {
             if (kvp.Value > epsilon)
@@ -132,30 +144,46 @@ public class ChemistryEngine : MonoBehaviour
                 if (profile != null)
                 {
                     float concentration = kvp.Value / volumeLiters;
-                    if (profile.type == ChemicalType.Acid && concentration > acidConcentration)
+                    if (profile.type == ChemicalType.Acid)
                     {
-                        dominantAcid = profile;
-                        acidConcentration = concentration;
+                        if (profile.isStrong && concentration > saConc) { strongAcid = profile; saConc = concentration; }
+                        else if (!profile.isStrong && concentration > waConc) { weakAcid = profile; waConc = concentration; }
                     }
-                    else if (profile.type == ChemicalType.Base && concentration > baseConcentration)
+                    else if (profile.type == ChemicalType.Base)
                     {
-                        dominantBase = profile;
-                        baseConcentration = concentration;
+                        if (profile.isStrong && concentration > sbConc) { strongBase = profile; sbConc = concentration; }
+                        else if (!profile.isStrong && concentration > wbConc) { weakBase = profile; wbConc = concentration; }
                     }
                 }
             }
         }
 
-        // Tinh pH dua vao chat noi troi
-        if (dominantAcid != null)
+        float finalPH = 7.0f;
+
+        // Uu tien 1: Axit manh lan at
+        if (strongAcid != null) 
         {
-            if (dominantAcid.isStrong) finalPH = -Mathf.Log10(acidConcentration);
-            else finalPH = 0.5f * (dominantAcid.pKa_pKb - Mathf.Log10(acidConcentration));
+            finalPH = -Mathf.Log10(saConc);
         }
-        else if (dominantBase != null)
+        // Uu tien 2: Bazo manh lan at
+        else if (strongBase != null)
         {
-            if (dominantBase.isStrong) finalPH = 14f + Mathf.Log10(baseConcentration);
-            else finalPH = 14f - 0.5f * (dominantBase.pKa_pKb - Mathf.Log10(baseConcentration));
+            finalPH = 14f + Mathf.Log10(sbConc);
+        }
+        // Uu tien 3: HE DUNG DICH DEM (Co ca Axit yeu va Bazo yeu) - Kich hoat phuong trinh Henderson-Hasselbalch
+        else if (weakAcid != null && weakBase != null)
+        {
+            finalPH = weakAcid.pKa_pKb + Mathf.Log10(wbConc / waConc);
+        }
+        // Uu tien 4: Chi co Axit yeu
+        else if (weakAcid != null)
+        {
+            finalPH = 0.5f * (weakAcid.pKa_pKb - Mathf.Log10(waConc));
+        }
+        // Uu tien 5: Chi co Bazo yeu
+        else if (weakBase != null)
+        {
+            finalPH = 14f - 0.5f * (weakBase.pKa_pKb - Mathf.Log10(wbConc));
         }
 
         data.phValue = Mathf.Clamp(finalPH, 0f, 14f);

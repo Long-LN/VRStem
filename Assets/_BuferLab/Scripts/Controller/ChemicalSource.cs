@@ -10,6 +10,10 @@ public class ChemicalSource : MonoBehaviour
 
     public LiquidContainer currentTarget; 
 
+    [Header("Am Thanh Nguon")]
+    [Tooltip("Keo component Audio Source cua voi bom vao day")]
+    public AudioSource sourceAudio;
+
     public void DispenseChemical()
     {
         if (currentTarget != null && currentTarget.liquidData.volume < currentTarget.maxVolume)
@@ -20,14 +24,20 @@ public class ChemicalSource : MonoBehaviour
             incomingData.liquidColor = chemicalColor;
             incomingData.phValue = phValue;
 
-            // Bắt buộc phải tính và nạp số Mol thì ChemistryEngine mới hoạt động
             if (molarity > 0f)
             {
                 float moles = molarity * (volumePerClick / 1000f);
                 incomingData.AddChemical(chemicalName, moles);
             }
 
-            currentTarget.ReceiveLiquid(volumePerClick, incomingData);
+            currentTarget.ReceiveLiquid(incomingData);
+
+            // --- PHAT AM THANH KHI BOM ---
+            if (sourceAudio != null && sourceAudio.clip != null)
+            {
+                // PlayOneShot giup am thanh khong bi ngat khi ban bam lien tuc
+                sourceAudio.PlayOneShot(sourceAudio.clip);
+            }
         }
     }
 

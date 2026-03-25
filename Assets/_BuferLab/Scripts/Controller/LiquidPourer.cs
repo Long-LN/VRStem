@@ -11,10 +11,13 @@ public class LiquidPourer : MonoBehaviour
     public float maxPourRate = 50f;
     public LiquidStream streamVisuals;
     
-    [Header("Thong so Tinh toan The tich")]
+    [Header("Thong so Tinh toan")]
     public Transform cupBottom;
-    [Tooltip("So am de tang do nhay, so duong de giam do nhay")]
     public float pourSensitivityOffset = -0.01f; 
+
+    [Header("Am Thanh")]
+    [Tooltip("Keo component Audio Source cua cai coc vao day")]
+    public AudioSource pourAudioSource;
 
     private LiquidContainer myContainer;
     private bool isPouring = false;
@@ -50,8 +53,6 @@ public class LiquidPourer : MonoBehaviour
         }
 
         float fillRatio = Mathf.Clamp01(myContainer.liquidData.volume / myContainer.maxVolume);
-        
-        // Them bu tru vao day de ban chu dong viec cham mep hay chua
         float currentWaterLevelY = Mathf.Lerp(cupBottom.position.y, rimCenter.position.y, fillRatio) + pourSensitivityOffset;
 
         if (currentWaterLevelY > lowestRimPoint.y)
@@ -74,7 +75,7 @@ public class LiquidPourer : MonoBehaviour
 
         if (myContainer.liquidData.volume < amountToPour) amountToPour = myContainer.liquidData.volume;
 
-        myContainer.liquidData.volume -= amountToPour;
+        LiquidData pouredLiquid = myContainer.liquidData.Extract(amountToPour);
         myContainer.UpdateVisuals();
 
         RaycastHit hit;
@@ -86,7 +87,7 @@ public class LiquidPourer : MonoBehaviour
             LiquidContainer targetContainer = hit.collider.GetComponentInParent<LiquidContainer>();
             if (targetContainer != null && targetContainer != myContainer)
             {
-                targetContainer.ReceiveLiquid(amountToPour, myContainer.liquidData);
+                targetContainer.ReceiveLiquid(pouredLiquid);
             }
         }
 
@@ -94,14 +95,32 @@ public class LiquidPourer : MonoBehaviour
         {
             float streamWidth = Mathf.Lerp(0.005f, 0.02f, tiltPercentage);
             Color streamColor = myContainer.showPHColorMode ? 
-                ChemistryEngine.Instance.GetColorFromPH(myContainer.liquidData.phValue) : 
-                myContainer.liquidData.liquidColor;
+                ChemistryEngine.Instance.GetColorFromPH(pouredLiquid.phValue) : 
+                pouredLiquid.liquidColor;
             
             streamVisuals.BeginPour(streamColor, streamWidth);
-            
             Vector3 pourDirection = (pourPosition - rimCenter.position).normalized;
             Vector3 initialVelocity = pourDirection * (1.5f * tiltPercentage); 
             streamVisuals.UpdateParabola(pourPosition, targetPoint, initialVelocity);
+        }
+
+        // --- XU LY AM THANH ROT NUOC ---
+        if (pourAudioSource != null)
+        {
+            if (!pourAudioSource.isPlaying)
+            {
+                pourAudioSource.Play();
+            }
+            
+            // 1. Dieu chinh AM LUONG (Volume)
+            // tiltPercentage (0 den 1) dai dien cho do nghieng va luong nuoc dang chay
+            // Khi rot ri ri, am luong chi o muc 5% (0.05f). Khi doc nguoc coc, am luong len 100% (1.0f)
+            pourAudioSource.volume = Mathf.Lerp(0.05f, 1.0f, tiltPercentage);
+
+            // 2. Dieu chinh DO THANH/TRAM (Pitch) de tang tinh chan thuc
+            // Khi rot ri ri (nuoc it), tieng se thanh hon, roc rach hon (Pitch = 1.2)
+            // Khi rot manh (nuoc nhieu), tieng se duc va on a hon (Pitch = 0.8)
+            pourAudioSource.pitch = Mathf.Lerp(1.2f, 0.8f, tiltPercentage);
         }
     }
 
@@ -109,5 +128,11 @@ public class LiquidPourer : MonoBehaviour
     {
         isPouring = false;
         if (streamVisuals != null) streamVisuals.EndPour();
+
+        // --- TAT AM THANH KHI DUNG ROT ---
+        if (pourAudioSource != null && pourAudioSource.isPlaying)
+        {
+            pourAudioSource.Stop();
+        }
     }
 }
