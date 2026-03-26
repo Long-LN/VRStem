@@ -716,9 +716,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 202364688, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1076109262}
-    - targetCorrespondingSourceObject: {fileID: 1670256625, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1977874616}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
@@ -2323,6 +2320,10 @@ GameObject:
   - component: {fileID: 1849201755}
   - component: {fileID: 1849201757}
   - component: {fileID: 1849201758}
+  - component: {fileID: 1849201759}
+  - component: {fileID: 1849201760}
+  - component: {fileID: 1849201761}
+  - component: {fileID: 1849201762}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Planet
@@ -2608,16 +2609,104 @@ MonoBehaviour:
   snapManager: {fileID: 1565800223}
   ghostMaterial: {fileID: 2100000, guid: 76a14daa9cab8c346a46673175a16e46, type: 2}
   ghostScale: 1
+--- !u!114 &1849201759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849201750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b3e21d822ebac54c8c76be278ddd8f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TwoHandZoom
+  leftController: {fileID: 270894865}
+  rightController: {fileID: 2052861477}
+  minScale: 0.1
+  maxScale: 5
+  zoomSensitivity: 1
+  leftThumbstick: {fileID: -60998027439631388, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rightThumbstick: {fileID: -8666952849799569744, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  thumbstickZoomSpeed: 0.5
+  hapticAmplitude: 0.3
+  hapticDuration: 0.1
+--- !u!114 &1849201760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849201750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f57f71e6ba4697f46974fc7566271757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZoomStateManager
+  focusMinScale: 1.5
+  detailMinScale: 3
+  solarSystemRoot: {fileID: 1849201754}
+--- !u!114 &1849201761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849201750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb2375c8d96211848974e1544954254b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThumbstickZoom
+  rightThumbstick: {fileID: -8666952849799569744, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  zoomSpeed: 0.5
+  minScale: 0.1
+  maxScale: 5
+  solarSystemRoot: {fileID: 1849201754}
+--- !u!114 &1849201762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849201750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b545b5ef761dd642b86b4bfd073ff5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResetZoom
+  buttonB: {fileID: -8069514856583376848, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
+  solarSystemRoot: {fileID: 1849201754}
 --- !u!1 &1977874615
 GameObject:
   m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1977874616}
+  m_Layer: 0
+  m_Name: 
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1977874616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977874615}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2052861477}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1996840135
 Mesh:
@@ -2823,7 +2912,7 @@ MonoBehaviour:
   m_InteractionLayers:
     m_Bits: 1
   m_Handedness: 2
-  m_AttachTransform: {fileID: 1977874616}
+  m_AttachTransform: {fileID: 0}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -3037,7 +3126,12 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1977874616}
   - {fileID: 299639869}
   - {fileID: 1249617921}
   - {fileID: 1849201754}
-  - {fileID: 5009905616022652597}
+  - {fileID: 441087506}
+  - {fileID: 154581825}
+  - {fileID: 756192408}
+  - {fileID: 1525655956}
+  - {fileID: 2092139010}

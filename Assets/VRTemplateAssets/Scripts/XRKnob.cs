@@ -95,7 +95,7 @@ namespace Unity.VRTemplate
 
         [SerializeField]
         [Tooltip("The value of the knob")]
-        [Range(0.0f, 1.0f)]
+        [Range(0.0f, 1f)]
         float m_Value = 0.5f;
 
         [SerializeField]
