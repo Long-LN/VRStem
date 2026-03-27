@@ -6,6 +6,10 @@ public class SmartDeviceController : MonoBehaviour
     [Header("--- Thông tin Thiết bị ---")]
     public string deviceName = "Thiết bị thông minh";
     
+    // THÊM: Nhãn phân loại nhóm (VD: Đèn, Quạt, An Ninh, Cửa...)
+    [Tooltip("Gõ tên nhóm để gom các thiết bị giống nhau lại (VD: Đèn, Quạt)")]
+    public string categoryName = "Khác";
+
     [Tooltip("Công suất tiêu thụ (Watt)")]
     public float powerRating = 50f;
 
@@ -204,6 +208,12 @@ void Start()
 
             // Báo cho đồng hồ trừ bớt điện
             if (ElectricityMeter.Instance != null) ElectricityMeter.Instance.RemoveLoad(powerRating);
+        }
+
+        // Báo cho Hub biết trạng thái đã thay đổi để Hub tô lại màu trên mọi màn hình
+        if (SmartHomeHub.Instance != null)
+        {
+            SmartHomeHub.Instance.UpdateUIForDevice(this);
         }
     }
 

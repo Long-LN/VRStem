@@ -285,11 +285,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SmartDeviceController
   deviceName: "Qu\u1EA1t tr\u1EA7n"
+  categoryName: "Qu\u1EA1t"
   powerRating: 55
+  isHardwired: 0
   isOn: 0
   deviceLight: {fileID: 0}
   bulbRenderer: {fileID: 0}
   glowColor: {r: 1, g: 1, b: 1, a: 1}
   fanBlades: {fileID: 5913212644278036692}
-  spinSpeed: 1000
+  spinSpeed: 300
   rotationAxis: {x: 0, y: 0, z: 1}
+  securityCamera: {fileID: 0}
+  noSignalTexts: []
+  doorHinge: {fileID: 0}
+  openAngle: 90
+  swingSpeed: 3
+  doorRotationAxis: {x: 0, y: 1, z: 0}
+  displayScreenUI: {fileID: 0}
