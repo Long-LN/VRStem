@@ -64,6 +64,14 @@ public class SolarSystemFocus : MonoBehaviour
         pivot = ChangePivot(solarRoot, planet.position);
         focusIn = true;
         StartCoroutine(ZoomInRoutine());
+
+        // Set hành tinh TO cho PlanetRotator
+        if (PlanetRotator.Instance != null)
+        {
+            PlanetVisual bigVisual = planetController.bigPlanets.Find(p => p.planetName == visual.planetName);
+            if (bigVisual != null)
+                PlanetRotator.Instance.SetPlanet(bigVisual.model);
+        }
     }
 
     void Update()
@@ -145,8 +153,10 @@ public class SolarSystemFocus : MonoBehaviour
             handle.UpdateHandleByScale(scale);
             yield return null;
         }
-        
-        
+
+        // Xóa hành tinh khỏi PlanetRotator
+        if (PlanetRotator.Instance != null)
+            PlanetRotator.Instance.ClearPlanet();
         
         Debug.Log("[SolarSystemFocus] Zoom OUT hoàn tất!");
     }
