@@ -1446,6 +1446,7 @@ GameObject:
   - component: {fileID: 542563670}
   - component: {fileID: 542563669}
   - component: {fileID: 542563668}
+  - component: {fileID: 542563671}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1515,6 +1516,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &542563671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542563667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 711bcf8b5d5491748990afde5df9ca8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  speakSource: {fileID: 0}
+  effectSource: {fileID: 0}
 --- !u!1001 &550220744
 PrefabInstance:
   m_ObjectHideFlags: 0
