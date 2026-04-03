@@ -22,6 +22,8 @@ public class PlanetVisual : MonoBehaviour
     public GameObject infoPanel;                // Kéo InfoPanel vào đây
     public TextMeshProUGUI descriptionText;     // Kéo DescriptionText vào đây
 
+    public bool isAnswered;
+
     private void Awake()
     {
         if(planetName == "")

@@ -116,6 +116,9 @@ public class PlanetQuiz : MonoBehaviour
             feedbackText.text = "Sai rồi! Thử lại nhé.";
             feedbackText.color = Color.red;
         }
+        
+        if(isComplete())
+            SpaceManager.instance.EndGame();
     }
 
     private IEnumerator CorrectRoutine()
@@ -179,5 +182,12 @@ public class PlanetQuiz : MonoBehaviour
         }
         return answeredPlanets.Contains(planetName);
         
+    }
+
+    public bool isComplete()
+    {
+        if(answeredPlanets.Count >= allPlanets.Length)
+            return true;
+        return false;
     }
 }
