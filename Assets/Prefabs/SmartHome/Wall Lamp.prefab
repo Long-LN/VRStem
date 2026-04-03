@@ -44,7 +44,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 3
+  m_Intensity: 5
   m_Range: 5
   m_SpotAngle: 179
   m_InnerSpotAngle: 174
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 137a1e5f3fa4b0b488477fafbec5e5b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SmartDeviceController
-  deviceName: "\u0110\xE8n t\u01B0\u1EDDng"
+  deviceName: "\u0110\xE8n tr\u1EA7n"
   categoryName: "\u0110\xE8n"
   powerRating: 20
   isHardwired: 0
