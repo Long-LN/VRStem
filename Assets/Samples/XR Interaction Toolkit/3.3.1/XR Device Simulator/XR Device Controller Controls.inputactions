@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "XR Device Controller Controls",
     "maps": [
         {
@@ -27,7 +28,7 @@
                     "name": "Grip",
                     "type": "Button",
                     "id": "c7937c78-cea4-4888-8feb-8d9da13005f2",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -36,7 +37,7 @@
                     "name": "Trigger",
                     "type": "Button",
                     "id": "3808b2c1-2f77-4a89-bc2a-34c0e0ef0ad3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -304,6 +305,17 @@
                     "name": "",
                     "id": "4f6dfc4a-38d9-455d-9364-3a188b0e9326",
                     "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69a87a38-39d1-471a-8606-c18655e424d8",
+                    "path": "<Keyboard>/#(6)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

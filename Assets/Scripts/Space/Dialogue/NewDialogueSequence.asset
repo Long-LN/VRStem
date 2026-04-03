@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: NewDialogueSequence
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueSequenceSO
+  segments:
+  - subTitle: 
+    voiceClip: {fileID: 8300000, guid: 6e07ba66085d12842a0c16ff4a2c7d46, type: 3}
+    delayAfter: 1
+  - subTitle: 
+    voiceClip: {fileID: 8300000, guid: 7b9316ab67acef44980b429cea931aa7, type: 3}
+    delayAfter: 1
+  playOnlyOnce: 1
