@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: a550c04391b1a324a977f515449911f3, type: 3}
   m_Name: Outro
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequenceSO
   segments:
-  - subTitle: 
+  - subTitle: Example Script 3
     voiceClip: {fileID: 8300000, guid: 96cb3194277b3e241a4621bb1dcd8063, type: 3}
     delayAfter: 0
-  playOnlyOnce: 0
+  playOnlyOnce: 1
