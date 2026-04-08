@@ -18,16 +18,22 @@ public class PlanetVisual : MonoBehaviour
     public TextMeshProUGUI labelText;
 
     [Header("Bảng thông tin")]
-    [TextArea] public string description = "";  // Điền mô tả hành tinh
-    public GameObject infoPanel;                // Kéo InfoPanel vào đây
-    public TextMeshProUGUI descriptionText;     // Kéo DescriptionText vào đây
+    [TextArea] public string description = "";
+    public GameObject infoPanel;
+    public TextMeshProUGUI descriptionText;
+    public Canvas infoCanvas;
 
     public bool isAnswered;
 
     private void Awake()
     {
-        if(planetName == "")
+        if (planetName == "")
             planetName = gameObject.name;
+    }
+
+    private void Start()
+    {
+        if (infoPanel != null) infoPanel.SetActive(false);
     }
 
     public void ShowMarker()
@@ -39,7 +45,7 @@ public class PlanetVisual : MonoBehaviour
 
     public void ShowModel()
     {
-        Debug.Log(gameObject.name + "show model");
+        Debug.Log(gameObject.name + " show model");
         marker.SetActive(false);
         model.SetActive(true);
         model.transform.position = marker.transform.position;
@@ -87,24 +93,44 @@ public class PlanetVisual : MonoBehaviour
             labelPanel.SetActive(false);
     }
 
-    // Hiện bảng thông tin
-    public void ShowInfo()
+    public void ShowInfo(Camera cam, Vector3 planetWorldPos, float rightOffset = 0.8f, float upOffset = 0.5f)
     {
         if (infoPanel == null) return;
         infoPanel.SetActive(true);
         if (descriptionText != null)
             descriptionText.text = description;
+
+        if (cam == null) return;
+
+        // Lấy Canvas từ infoPanel hoặc cha của nó
+        Canvas canvas = infoCanvas;
+        if (canvas == null)
+            canvas = infoPanel.GetComponent<Canvas>();
+        if (canvas == null)
+            canvas = infoPanel.GetComponentInParent<Canvas>();
+        if (canvas == null) return;
+
+        // Ép sang World Space nếu chưa phải
+        if (canvas.renderMode != RenderMode.WorldSpace)
+        {
+            canvas.renderMode = RenderMode.WorldSpace;
+            canvas.worldCamera = cam;
+            canvas.transform.localScale = Vector3.one * 0.001f;
+        }
+
+        // Đặt vị trí bên PHẢI hành tinh theo góc nhìn camera
+        canvas.transform.position = planetWorldPos
+            + cam.transform.right * rightOffset
+            + cam.transform.up    * upOffset;
+
+        // Quay mặt về phía camera
+        Vector3 dir = cam.transform.position - canvas.transform.position;
+        canvas.transform.rotation = Quaternion.LookRotation(-dir.normalized);
     }
 
-    // Ẩn bảng thông tin
     public void HideInfo()
     {
         if (infoPanel != null)
             infoPanel.SetActive(false);
     }
-    private void Start()
-{
-    // Ẩn InfoPanel lúc đầu
-    if (infoPanel != null) infoPanel.SetActive(false);
-}
 }

@@ -20,13 +20,19 @@ public class PlanetQuiz : MonoBehaviour
 
     [Header("World Space Settings")]
     public Canvas quizCanvas;
-    public float heightAbovePlanet = 2f; // Độ cao phía trên hành tinh
+
+    [Tooltip("Khoảng cách sang trái so với hành tinh")]
+    public float leftOffset = 0.8f;
+
+    [Tooltip("Khoảng cách lên cao so với hành tinh")]
+    public float upOffset = 0.5f;
+
     public Camera targetCamera;
 
     private string[] allPlanets = { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" };
 
     private string correctAnswer = "";
-    [SerializeField]private HashSet<string> answeredPlanets = new HashSet<string>();
+    [SerializeField] private HashSet<string> answeredPlanets = new HashSet<string>();
 
     private PlanetVisual currentPlanetVisual = null;
 
@@ -34,6 +40,8 @@ public class PlanetQuiz : MonoBehaviour
 
     private void Start()
     {
+        if (targetCamera == null) targetCamera = Camera.main;
+
         quizPanel.SetActive(false);
         completePanel.SetActive(false);
         feedbackText.text = "";
@@ -48,29 +56,31 @@ public class PlanetQuiz : MonoBehaviour
             v.ShowQuestionMark();
     }
 
-    private void PlaceCanvasAbovePlanet()
+    private void PlaceCanvasNextToPlanet()
     {
         if (targetCamera == null || quizCanvas == null) return;
-        if (currentPlanetVisual == null) return;
 
-        // Đặt canvas phía trên đầu hành tinh
-        Vector3 planetPos = currentPlanetVisual.transform.position;
-        quizCanvas.transform.position = planetPos + Vector3.up * heightAbovePlanet;
+        // Vị trí cố định của hành tinh đang focus trước camera
+        Vector3 planetPos = SolarSystemFocus.Instance.GetFocusWorldPos();
 
-        // Canvas luôn quay mặt về phía camera
-        quizCanvas.transform.rotation = Quaternion.LookRotation(
-            quizCanvas.transform.position - targetCamera.transform.position
-        );
+        // Sang trái + lên cao theo trục của camera
+        quizCanvas.transform.position = planetPos
+            - targetCamera.transform.right * leftOffset
+            + targetCamera.transform.up   * upOffset;
+
+        // Canvas quay mặt thẳng về phía camera
+        Vector3 dirToCamera = targetCamera.transform.position - quizCanvas.transform.position;
+        quizCanvas.transform.rotation = Quaternion.LookRotation(-dirToCamera.normalized);
     }
 
     public void StartQuiz(string planetName, PlanetVisual visual)
     {
         if (answeredPlanets.Contains(planetName)) return;
 
-        correctAnswer = planetName;
+        correctAnswer       = planetName;
         currentPlanetVisual = visual;
-        feedbackText.text = "";
-        questionText.text = "Hành tinh này tên là gì?";
+        feedbackText.text   = "";
+        questionText.text   = "Hành tinh này tên là gì?";
 
         List<string> options = GetRandomOptions(planetName);
         SetupButton(buttonA, options[0]);
@@ -83,8 +93,7 @@ public class PlanetQuiz : MonoBehaviour
         SetButtonColor(buttonC, Color.white);
         SetButtonColor(buttonD, Color.white);
 
-        // Đặt canvas trên đầu hành tinh rồi mới hiện
-        PlaceCanvasAbovePlanet();
+        PlaceCanvasNextToPlanet();
         quizPanel.SetActive(true);
     }
 
@@ -100,7 +109,7 @@ public class PlanetQuiz : MonoBehaviour
         if (answer == correctAnswer)
         {
             SetButtonColor(btn, Color.green);
-            feedbackText.text = "Chính xác!";
+            feedbackText.text  = "Chính xác!";
             feedbackText.color = Color.green;
 
             answeredPlanets.Add(correctAnswer);
@@ -113,12 +122,9 @@ public class PlanetQuiz : MonoBehaviour
         else
         {
             SetButtonColor(btn, Color.red);
-            feedbackText.text = "Sai rồi! Thử lại nhé.";
+            feedbackText.text  = "Sai rồi! Thử lại nhé.";
             feedbackText.color = Color.red;
         }
-        
-        if(isComplete())
-            SpaceManager.instance.EndGame();
     }
 
     private IEnumerator CorrectRoutine()
@@ -143,10 +149,10 @@ public class PlanetQuiz : MonoBehaviour
 
     private void SetButtonColor(Button btn, Color color)
     {
-        var colors = btn.colors;
-        colors.normalColor = color;
+        var colors         = btn.colors;
+        colors.normalColor   = color;
         colors.selectedColor = color;
-        btn.colors = colors;
+        btn.colors         = colors;
     }
 
     private List<string> GetRandomOptions(string correct)
@@ -171,23 +177,8 @@ public class PlanetQuiz : MonoBehaviour
         return options;
     }
 
-    // public bool IsAnswered(string planetName) => 
-
     public bool IsAnswered(string planetName)
     {
-        Debug.Log(planetName + " is answered" + answeredPlanets.Contains(planetName));
-        foreach(var answer in answeredPlanets)
-        {
-            Debug.Log(answer);
-        }
         return answeredPlanets.Contains(planetName);
-        
-    }
-
-    public bool isComplete()
-    {
-        if(answeredPlanets.Count >= allPlanets.Length)
-            return true;
-        return false;
     }
 }

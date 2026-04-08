@@ -1,5 +1,4 @@
 using System.Collections;
-using NUnit.Framework;
 using UnityEngine;
 
 public class QuizAndInforManager : MonoBehaviour
@@ -9,6 +8,7 @@ public class QuizAndInforManager : MonoBehaviour
     public float delayTime;
     public PlanetVisual bigPlanetVisual;
     public PlanetVisual smallPlanetVisual;
+
     void Start()
     {
         solarSystemFocus = SolarSystemFocus.Instance;
@@ -18,19 +18,21 @@ public class QuizAndInforManager : MonoBehaviour
     {
         Debug.Log(planetName);
         smallPlanetVisual = planetController.smallPlanets.Find(planet => planet.name == planetName);
-        bigPlanetVisual = planetController.bigPlanets.Find(planet => planet.name == planetName);
+        bigPlanetVisual   = planetController.bigPlanets.Find(planet => planet.name == planetName);
+
         bool isAnswered = PlanetQuiz.Instance.IsAnswered(planetName);
-        if(!isAnswered)
+        if (!isAnswered)
             StartCoroutine(ShowDelayQuiz());
         else
         {
-            bigPlanetVisual.ShowInfo();
+            Vector3 planetPos = SolarSystemFocus.Instance.GetFocusWorldPos();
+            Camera  cam       = PlanetQuiz.Instance.targetCamera;
+            bigPlanetVisual.ShowInfo(cam, planetPos);
         }
     }
 
     public void HidePanel(string planetName)
     {
-        
         bigPlanetVisual = planetController.bigPlanets.Find(planet => planet.name == planetName);
         bigPlanetVisual.HideInfo();
     }
