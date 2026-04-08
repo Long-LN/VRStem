@@ -24,11 +24,7 @@ public class QuizAndInforManager : MonoBehaviour
         if (!isAnswered)
             StartCoroutine(ShowDelayQuiz());
         else
-        {
-            Vector3 planetPos = SolarSystemFocus.Instance.GetFocusWorldPos();
-            Camera  cam       = PlanetQuiz.Instance.targetCamera;
-            bigPlanetVisual.ShowInfo(cam, planetPos);
-        }
+            bigPlanetVisual.ShowInfo();
     }
 
     public void HidePanel(string planetName)
