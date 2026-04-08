@@ -12,11 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Intro
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequenceSO
-  segments:
-  - subTitle: Example 1
-    voiceClip: {fileID: 8300000, guid: 6e07ba66085d12842a0c16ff4a2c7d46, type: 3}
-    delayAfter: 1
-  - subTitle: Example 2
-    voiceClip: {fileID: 8300000, guid: 7b9316ab67acef44980b429cea931aa7, type: 3}
-    delayAfter: 0
-  playOnlyOnce: 1
