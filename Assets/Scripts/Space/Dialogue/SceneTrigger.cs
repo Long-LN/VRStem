@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SceneTrigger : MonoBehaviour
 {
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public DialogueSequenceSO introSequence;
     public DialogueSequenceSO outroSequence;
 
@@ -14,4 +15,5 @@ public class SceneTrigger : MonoBehaviour
     {
         DialogueManager.Instance.PlaySequence(outroSequence);
     }
+    
 }

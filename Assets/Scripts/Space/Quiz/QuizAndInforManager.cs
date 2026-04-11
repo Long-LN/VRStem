@@ -16,7 +16,6 @@ public class QuizAndInforManager : MonoBehaviour
 
     public void ShowPanel(string planetName)
     {
-        Debug.Log(planetName);
         smallPlanetVisual = planetController.smallPlanets.Find(planet => planet.name == planetName);
         bigPlanetVisual   = planetController.bigPlanets.Find(planet => planet.name == planetName);
 
@@ -25,9 +24,9 @@ public class QuizAndInforManager : MonoBehaviour
             StartCoroutine(ShowDelayQuiz());
         else
         {
-            Vector3 planetPos = SolarSystemFocus.Instance.GetFocusWorldPos();
-            Camera  cam       = PlanetQuiz.Instance.targetCamera;
-            bigPlanetVisual.ShowInfo(cam, planetPos);
+            // Vector3 planetPos = SolarSystemFocus.Instance.GetFocusWorldPos();
+            Camera cam = PlanetQuiz.Instance.targetCamera;
+            bigPlanetVisual.ShowInfo(cam);
         }
     }
 

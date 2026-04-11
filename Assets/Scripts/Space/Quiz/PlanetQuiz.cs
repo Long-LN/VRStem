@@ -61,12 +61,12 @@ public class PlanetQuiz : MonoBehaviour
         if (targetCamera == null || quizCanvas == null) return;
 
         // Vị trí cố định của hành tinh đang focus trước camera
-        Vector3 planetPos = SolarSystemFocus.Instance.GetFocusWorldPos();
+        // Vector3 planetPos = SolarSystemFocus.Instance.GetFocusWorldPos();
 
         // Sang trái + lên cao theo trục của camera
-        quizCanvas.transform.position = planetPos
-            - targetCamera.transform.right * leftOffset
-            + targetCamera.transform.up   * upOffset;
+        // quizCanvas.transform.position = planetPos
+        //     - targetCamera.transform.right * leftOffset
+        //     + targetCamera.transform.up   * upOffset;
 
         // Canvas quay mặt thẳng về phía camera
         Vector3 dirToCamera = targetCamera.transform.position - quizCanvas.transform.position;

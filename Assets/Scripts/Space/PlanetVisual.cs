@@ -48,7 +48,8 @@ public class PlanetVisual : MonoBehaviour
         Debug.Log(gameObject.name + " show model");
         marker.SetActive(false);
         model.SetActive(true);
-        model.transform.position = marker.transform.position;
+        // model.transform.position = marker.transform.position;
+        model.transform.position = SolarSystemFocus.Instance.pivot.position;
     }
 
     public void ShowTooltip()
@@ -93,7 +94,7 @@ public class PlanetVisual : MonoBehaviour
             labelPanel.SetActive(false);
     }
 
-    public void ShowInfo(Camera cam, Vector3 planetWorldPos, float rightOffset = 0.8f, float upOffset = 0.5f)
+    public void ShowInfo(Camera cam)
     {
         if (infoPanel == null) return;
         infoPanel.SetActive(true);
@@ -117,11 +118,6 @@ public class PlanetVisual : MonoBehaviour
             canvas.worldCamera = cam;
             canvas.transform.localScale = Vector3.one * 0.001f;
         }
-
-        // Đặt vị trí bên PHẢI hành tinh theo góc nhìn camera
-        canvas.transform.position = planetWorldPos
-            + cam.transform.right * rightOffset
-            + cam.transform.up    * upOffset;
 
         // Quay mặt về phía camera
         Vector3 dir = cam.transform.position - canvas.transform.position;

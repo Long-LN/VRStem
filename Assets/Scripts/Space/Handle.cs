@@ -54,25 +54,6 @@ public class Handle : MonoBehaviour
         rb.Sleep();
     }
 
-    void Update()
-    {
-        // // vector từ parent đến object
-        // Vector3 dir = transform.position - parent.position;
-        //
-        // // lấy trục X của parent (local X)
-        // Vector3 axis = parent.forward;
-        //
-        // // chiếu vector dir lên axis
-        // float distance = Vector3.Dot(dir, axis);
-        //
-        // // set lại position chỉ theo trục X của parent
-        // transform.position = parent.position + axis * distance;
-        //
-        // if (!isGrabbed) return;
-        // progress = (handle.position.x - initPos) / maxX * 100f;
-        // Debug.Log(progress);
-    }
-
     private void LateUpdate()
     {
         // 1. Chuyển vị trí hiện tại của handle sang không gian local của startPoint
