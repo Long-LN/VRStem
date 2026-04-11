@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class SmarthomeUITabController : MonoBehaviour
 {
@@ -21,31 +22,37 @@ public class SmarthomeUITabController : MonoBehaviour
         SwitchTab(0);
     }
 
-    // Hàm này sẽ được gọi khi bạn bấm vào các nút Tab trên UI
     public void SwitchTab(int tabIndex)
     {
+        // 1. Bật/Tắt Panels
         for (int i = 0; i < tabPanels.Length; i++)
         {
-            // Nếu số thứ tự của vòng lặp khớp với số thứ tự của Tab được chọn -> Bật nó lên
-            if (i == tabIndex)
-            {
-                tabPanels[i].SetActive(true);
-            }
-            // Nếu không khớp -> Tắt nó đi
-            else
-            {
-                tabPanels[i].SetActive(false);
-            }
+            if (tabPanels[i] != null) tabPanels[i].SetActive(i == tabIndex);
         }
 
-        // 2. THÊM MỚI: Đổi màu nền của các Nút Tab
+        // 2. Đổi màu nút
         for (int i = 0; i < tabButtons.Length; i++)
         {
             if (tabButtons[i] != null)
             {
-                // Nếu đúng là nút đang chọn -> Tô màu Active. Nếu không -> Tô màu Inactive
                 tabButtons[i].color = (i == tabIndex) ? activeColor : inactiveColor;
             }
         }
+
+        // 3. THAY ĐỔI: Thay vì gọi trực tiếp, chúng ta gọi một Coroutine để trì hoãn 1 khung hình
+        if (tabIndex == 2 && SecurityCameraManager.Instance != null)
+        {
+            StartCoroutine(DelayUpdateCameras());
+        }
+    }
+
+    // HÀM MỚI: Tiến trình chờ đợi
+    private IEnumerator DelayUpdateCameras()
+    {
+        // Ra lệnh cho code tạm dừng lại, chờ đến khi Unity vẽ xong toàn bộ UI của khung hình hiện tại
+        yield return new WaitForEndOfFrame(); 
+        
+        // Sau khi mọi thứ đã "tỉnh ngủ", mới ra lệnh cập nhật Camera
+        SecurityCameraManager.Instance.UpdateAllDisplays();
     }
 }
