@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Space.unity
     guid: e6dda8545e44055488878a3b4dffd453
   - enabled: 1
+    path: Assets/Scenes/Space 2.unity
+    guid: 11659bd96093b3b44a759f8ac6bca711
+  - enabled: 1
     path: Assets/Scenes/Temp.unity
     guid: 0139e3cb35dad044a94326fc20e1dbeb
   m_configObjects:
