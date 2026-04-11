@@ -19,4 +19,4 @@ MonoBehaviour:
   - subTitle: Example Script 2
     voiceClip: {fileID: 8300000, guid: 7b9316ab67acef44980b429cea931aa7, type: 3}
     delayAfter: 0
-  playOnlyOnce: 1
+  playOnlyOnce: 0

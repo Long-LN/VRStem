@@ -94,14 +94,13 @@ public class PlanetVisual : MonoBehaviour
             labelPanel.SetActive(false);
     }
 
-    public void ShowInfo(Camera cam)
+    public void ShowInfo()
     {
         if (infoPanel == null) return;
         infoPanel.SetActive(true);
         if (descriptionText != null)
             descriptionText.text = description;
-
-        if (cam == null) return;
+        
 
         // Lấy Canvas từ infoPanel hoặc cha của nó
         Canvas canvas = infoCanvas;
@@ -115,13 +114,8 @@ public class PlanetVisual : MonoBehaviour
         if (canvas.renderMode != RenderMode.WorldSpace)
         {
             canvas.renderMode = RenderMode.WorldSpace;
-            canvas.worldCamera = cam;
             canvas.transform.localScale = Vector3.one * 0.001f;
         }
-
-        // Quay mặt về phía camera
-        Vector3 dir = cam.transform.position - canvas.transform.position;
-        canvas.transform.rotation = Quaternion.LookRotation(-dir.normalized);
     }
 
     public void HideInfo()
