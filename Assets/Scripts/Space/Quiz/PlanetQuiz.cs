@@ -375,9 +375,7 @@ public class PlanetQuiz : MonoBehaviour
 
         Vector3 planetPos = SolarSystemFocus.Instance.pivot.position;
 
-        descriptionUIDocument.transform.position = planetPos
-            - targetCamera.transform.right * leftOffset
-            + targetCamera.transform.up   * upOffset;
+        descriptionUIDocument.transform.position = quizPanel.transform.position;
 
         Vector3 dirToCamera = targetCamera.transform.position - descriptionUIDocument.transform.position;
         descriptionUIDocument.transform.rotation = Quaternion.LookRotation(-dirToCamera.normalized);
