@@ -27,9 +27,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Smart Home.unity
     guid: b6d0728bfef48d046bcb681b84edb32c
   - enabled: 1
-    path: Assets/Scenes/Space.unity
-    guid: e6dda8545e44055488878a3b4dffd453
-  - enabled: 1
     path: Assets/Scenes/Space 2.unity
     guid: 11659bd96093b3b44a759f8ac6bca711
   - enabled: 1
