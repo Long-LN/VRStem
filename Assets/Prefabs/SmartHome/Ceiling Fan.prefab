@@ -84,6 +84,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: da26921b558cf7e4c809a4ce5e73b6f7, type: 3}
       insertIndex: -1
       addedObject: {fileID: -5995718033805755785}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: da26921b558cf7e4c809a4ce5e73b6f7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6027555566975989258}
   m_SourcePrefab: {fileID: 100100000, guid: da26921b558cf7e4c809a4ce5e73b6f7, type: 3}
 --- !u!4 &5913212644278036692 stripped
 Transform:
@@ -302,3 +305,16 @@ MonoBehaviour:
   swingSpeed: 3
   doorRotationAxis: {x: 0, y: 1, z: 0}
   displayScreenUI: {fileID: 0}
+--- !u!114 &6027555566975989258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6585471334274455383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90492bba9101d3a499fb95bc717f37a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeviceGrabBroadcaster
+  deviceSocketType: CeilingFan

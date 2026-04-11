@@ -38,9 +38,6 @@ public class SmartDeviceController : MonoBehaviour
     [Header("--- Cấu hình Camera ---")]
     // Khai báo Camera
     public Camera securityCamera;
-    [Tooltip("Text (TMP) chứa chữ NO SIGNAL")]
-    // THAY ĐỔI: Chữ NO SIGNAL giờ đây phải hiển thị trên cả TV và Tay trái
-    public List<GameObject> noSignalTexts;
 
     [Header("--- Cấu hình Cửa ---")]
     public Transform doorHinge; 
@@ -84,7 +81,7 @@ public class SmartDeviceController : MonoBehaviour
         }
     }
 
-void Start()
+    void Start()
     {
         if (bulbRenderer != null)
         {
@@ -109,24 +106,15 @@ void Start()
             if (bulbMaterial != null) bulbMaterial.SetColor("_EmissionColor", glowColor);
 
             if (securityCamera != null) securityCamera.enabled = true;
-            if (noSignalTexts != null)
-            {
-                foreach (GameObject text in noSignalTexts)
-                {
-                    if (text != null) text.SetActive(false);
-                }
-            }
         }
         else 
         {
             if (securityCamera != null) securityCamera.enabled = false;
-            if (noSignalTexts != null)
-            {
-                foreach (GameObject text in noSignalTexts)
-                {
-                    if (text != null) text.SetActive(true);
-                }
-            }
+        }
+        // Nếu thiết bị này là Camera, báo cho Trưởng phòng biết!
+        if (securityCamera != null && SecurityCameraManager.Instance != null)
+        {
+            SecurityCameraManager.Instance.RegisterCamera(this);
         }
     }
 
@@ -154,15 +142,6 @@ void Start()
             if (deviceLight != null) deviceLight.enabled = true;
             if (bulbMaterial != null) bulbMaterial.SetColor("_EmissionColor", glowColor);
             
-            // Bật Camera quay hình
-            if (securityCamera != null) securityCamera.enabled = true;
-            if (noSignalTexts != null)
-            {
-                foreach (GameObject text in noSignalTexts)
-                {
-                    if (text != null) text.SetActive(false);
-                }
-            }
 
             if (displayScreenUI != null) displayScreenUI.SetActive(true); // Bật TV -> Hiện UI
 
@@ -173,36 +152,6 @@ void Start()
         {
             if (deviceLight != null) deviceLight.enabled = false;
             if (bulbMaterial != null) bulbMaterial.SetColor("_EmissionColor", Color.black);
-            
-            // Xử lý tắt Camera và bôi đen màn hình
-            if (securityCamera != null) 
-            {
-                securityCamera.enabled = false; // Dừng quay hình
-
-                // --- THÊM MỚI: Xóa cuộn băng về màu đen ---
-                if (securityCamera.targetTexture != null)
-                {
-                    // 1. Lưu lại trạng thái bộ nhớ hiện tại của Unity
-                    RenderTexture currentRT = RenderTexture.active; 
-                    
-                    // 2. Trỏ thẳng vào cuộn băng của Camera này
-                    RenderTexture.active = securityCamera.targetTexture; 
-                    
-                    // 3. Dùng thư viện Đồ họa (GL) tô đen xì toàn bộ (Clear)
-                    GL.Clear(true, true, Color.black); 
-                    
-                    // 4. Trả lại trạng thái bộ nhớ như cũ cho Unity
-                    RenderTexture.active = currentRT; 
-                }
-                // ------------------------------------------
-                if (noSignalTexts != null)
-                {
-                    foreach (GameObject text in noSignalTexts)
-                    {
-                        if (text != null) text.SetActive(true);
-                    }
-                }
-            }
 
             if (displayScreenUI != null) displayScreenUI.SetActive(false); // Tắt TV -> Giấu UI
 
@@ -214,6 +163,12 @@ void Start()
         if (SmartHomeHub.Instance != null)
         {
             SmartHomeHub.Instance.UpdateUIForDevice(this);
+        }
+
+        // Báo cho Trung tâm Camera cập nhật lại hình ảnh trên MỌI MÀN HÌNH
+        if (securityCamera != null && SecurityCameraManager.Instance != null)
+        {
+            SecurityCameraManager.Instance.UpdateAllDisplays();
         }
     }
 
@@ -241,6 +196,17 @@ void Start()
         if (other.CompareTag("Player") && doorHinge != null)
         {
             if (isOn) ToggleDevice(); 
+        }
+    }
+
+    // ép Unity tự động chạy hàm dọn dẹp ngay sau khi bấm nút Play
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetStaticData()
+    {
+        // Xóa sạch cuốn sổ đếm mỗi lần chơi lại
+        if (deviceTypeCounters != null)
+        {
+            deviceTypeCounters.Clear();
         }
     }
 }
