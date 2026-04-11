@@ -61,8 +61,8 @@ public class SolarSystemFocus : MonoBehaviour
 
     private void Start()
     {
-        _originPos   = solarRoot.position;
-        _originRot   = solarRoot.rotation;
+        _originPos = solarRoot.position;
+        _originRot = solarRoot.rotation;
         _originScale = solarRoot.localScale;
 
         solarRoot.localScale = Vector3.one * minScale;
@@ -100,21 +100,21 @@ public class SolarSystemFocus : MonoBehaviour
     public void FocusPlanet(Transform planet, PlanetVisual visual)
     {
         StopAllCoroutines();
-        focusIn  = false;
+        focusIn = false;
         focusOut = false;
 
         // 1. Trả model cũ về local + tắt orbit cũ TRƯỚC khi reset solarRoot
         RestoreCurrentBigVisual();
 
         // 2. Reset solarRoot (phải sau Restore để world pos tính đúng)
-        solarRoot.position   = _originPos;
-        solarRoot.rotation   = _originRot;
+        solarRoot.position = _originPos;
+        solarRoot.rotation = _originRot;
         solarRoot.localScale = Vector3.one * minScale;
         _currentT = 0f;
         pivot = solarRoot;
 
         // 3. Gán mới
-        planetVisual     = visual;
+        planetVisual = visual;
         planetSelectable = planet.GetComponent<PlanetSelectable>();
         planetController.SetPlanetZoom(visual);
 
@@ -132,10 +132,10 @@ public class SolarSystemFocus : MonoBehaviour
         foreach (var o in orbits) o.enabled = false;
 
         // 5. Lưu local transform gốc của model
-        Transform model  = bigVisual.model.transform;
-        _modelParent     = model.parent;
-        _modelLocalPos   = model.localPosition;
-        _modelLocalRot   = model.localRotation;
+        Transform model = bigVisual.model.transform;
+        _modelParent = model.parent;
+        _modelLocalPos = model.localPosition;
+        _modelLocalRot = model.localRotation;
         _modelLocalScale = model.localScale;
 
         // 6. Cache world position của model ngay lúc này
@@ -153,7 +153,7 @@ public class SolarSystemFocus : MonoBehaviour
 
         showModel = false;
         showInfor = false;
-        focusIn   = true;
+        focusIn = true;
 
         StartCoroutine(ZoomInRoutine());
     }
@@ -163,17 +163,17 @@ public class SolarSystemFocus : MonoBehaviour
     {
         StopAllCoroutines();
         focusOut = true;
-        focusIn  = false;
+        focusIn = false;
 
         // Trả model về đúng local transform TRƯỚC khi zoom out
         // để model thu nhỏ tự nhiên cùng solarRoot, không bị orbit ghi đè
         if (_currentBigVisual != null && _currentBigVisual.model != null && _modelParent != null)
         {
-            Transform m     = _currentBigVisual.model.transform;
+            Transform m = _currentBigVisual.model.transform;
             m.SetParent(_modelParent, false);
             m.localPosition = _modelLocalPos;
             m.localRotation = _modelLocalRot;
-            m.localScale    = _modelLocalScale;
+            m.localScale = _modelLocalScale;
         }
 
         // KHÔNG bật lại orbit ở đây — bật SAU KHI zoom out xong
@@ -185,7 +185,7 @@ public class SolarSystemFocus : MonoBehaviour
     // ── Coroutines ──
     private IEnumerator ZoomInRoutine()
     {
-        float startT   = _currentT;
+        float startT = _currentT;
         float duration = zoomSpeed * (1f - startT);
 
         if (duration <= 0f) { FinishZoomIn(); yield break; }
@@ -194,7 +194,7 @@ public class SolarSystemFocus : MonoBehaviour
         while (elapsed < duration && focusIn)
         {
             elapsed += Time.deltaTime;
-            float raw    = elapsed / duration;
+            float raw = elapsed / duration;
             float smooth = raw * raw * (3f - 2f * raw);
             SetSystemScale(Mathf.Lerp(startT, 1f, smooth) * 100f);
             handle.UpdateHandleByScale(solarRoot.localScale.x);
@@ -212,7 +212,7 @@ public class SolarSystemFocus : MonoBehaviour
 
     private IEnumerator ZoomOutRoutine()
     {
-        float startT   = _currentT;
+        float startT = _currentT;
         float duration = zoomSpeed * startT;
 
         if (duration <= 0f) { FinishZoomOut(); yield break; }
@@ -221,7 +221,7 @@ public class SolarSystemFocus : MonoBehaviour
         while (elapsed < duration && focusOut)
         {
             elapsed += Time.deltaTime;
-            float raw    = elapsed / duration;
+            float raw = elapsed / duration;
             float smooth = raw * raw * (3f - 2f * raw);
             SetSystemScale(Mathf.Lerp(startT, 0f, smooth) * 100f);
             handle.UpdateHandleByScale(solarRoot.localScale.x);
@@ -234,8 +234,8 @@ public class SolarSystemFocus : MonoBehaviour
     private void FinishZoomOut()
     {
         SetSystemScale(0f);
-        solarRoot.position   = _originPos;
-        solarRoot.rotation   = _originRot;
+        solarRoot.position = _originPos;
+        solarRoot.rotation = _originRot;
         solarRoot.localScale = Vector3.one * minScale;
         handle.UpdateHandleByScale(minScale);
 
@@ -246,13 +246,13 @@ public class SolarSystemFocus : MonoBehaviour
             foreach (var o in orbits) o.enabled = true;
         }
 
-        showModel         = false;
-        showInfor         = false;
-        focusIn           = false;
-        focusOut          = false;
+        showModel = false;
+        showInfor = false;
+        focusIn = false;
+        focusOut = false;
         _currentBigVisual = null;
-        _modelParent      = null;
-        pivot             = solarRoot;
+        _modelParent = null;
+        pivot = solarRoot;
 
         if (PlanetRotator.Instance != null)
             PlanetRotator.Instance.ClearPlanet();
@@ -269,15 +269,15 @@ public class SolarSystemFocus : MonoBehaviour
 
         if (_currentBigVisual.model != null && _modelParent != null)
         {
-            Transform m     = _currentBigVisual.model.transform;
+            Transform m = _currentBigVisual.model.transform;
             m.SetParent(_modelParent, false);
             m.localPosition = _modelLocalPos;
             m.localRotation = _modelLocalRot;
-            m.localScale    = _modelLocalScale;
+            m.localScale = _modelLocalScale;
         }
 
         _currentBigVisual = null;
-        _modelParent      = null;
+        _modelParent = null;
     }
 
     // ── Update: show/hide model & quiz ──
@@ -303,6 +303,7 @@ public class SolarSystemFocus : MonoBehaviour
         if (s >= questionAppearScale && !showInfor)
         {
             if (planetVisual.planetName == "Sun") return;
+            Debug.Log($"[SolarSystemFocus] Gọi ShowPanel cho: {planetVisual.planetName}");
             quizAndInforManager.ShowPanel(planetVisual.planetName);
             showInfor = true;
         }
