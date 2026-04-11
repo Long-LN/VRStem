@@ -20,6 +20,18 @@ public class DialogueManager : MonoBehaviour
 
         if (sequence.playOnlyOnce) sequence.hasBeenPlayed = true;
     }
+    
+    public void PlayDescriptionSequence(DialogueSequenceSO sequence)
+    {
+        if (sequence.playOnlyOnce && sequence.hasBeenPlayed) return;
+
+        StopAllCoroutines();
+        StartCoroutine(ExecuteSequence(sequence));
+
+        if (sequence.playOnlyOnce) sequence.hasBeenPlayed = true;
+    }
+    
+
 
     private IEnumerator ExecuteSequence(DialogueSequenceSO sequence)
     {
@@ -32,6 +44,26 @@ public class DialogueManager : MonoBehaviour
 
             // 2. Đợi cho đến khi âm thanh phát xong
             yield return new WaitWhile(() => audioSource.isPlaying);
+
+            // 3. Nghỉ thêm một khoảng thời gian (delayAfter)
+            subtitleText.text = ""; // Xóa chữ trong lúc nghỉ
+            yield return new WaitForSeconds(segment.delayAfter);
+        }
+    }
+    
+    private IEnumerator ExecuteSequenceDescription(DialogueSequenceSO sequence)
+    {
+        foreach (var segment in sequence.segments)
+        {
+            // 1. Hiển thị chữ và phát âm thanh
+            subtitleText.text = $"{segment.subTitle}";
+            audioSource.clip = segment.voiceClip;
+            audioSource.Play();
+
+            // 2. Đợi cho đến khi âm thanh phát xong
+            yield return new WaitWhile(() => audioSource.isPlaying);
+            
+            //zoomout
 
             // 3. Nghỉ thêm một khoảng thời gian (delayAfter)
             subtitleText.text = ""; // Xóa chữ trong lúc nghỉ

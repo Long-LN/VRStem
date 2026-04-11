@@ -1034,6 +1034,8 @@ MonoBehaviour:
   description: 
   infoPanel: {fileID: 0}
   descriptionText: {fileID: 0}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!135 &1818759967578136045
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1136,6 +1138,8 @@ MonoBehaviour:
     d\xE0y \u0111\u1EB7c."
   infoPanel: {fileID: 5333254746832905766}
   descriptionText: {fileID: 126111024249157953}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!1 &1385549299479010726
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,6 +1277,8 @@ MonoBehaviour:
     \u0110\u1EA5t."
   infoPanel: {fileID: 6016283919804635309}
   descriptionText: {fileID: 149703175355022283}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!1 &1495648872197138011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,6 +1497,8 @@ MonoBehaviour:
   description: 
   infoPanel: {fileID: 0}
   descriptionText: {fileID: 0}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!135 &5272250367443231241
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2531,6 +2539,8 @@ MonoBehaviour:
     tr\u1EDDi, c\xF3 m\xE0u \u0111\u1ECF \u0111\u1EB7c tr\u01B0ng."
   infoPanel: {fileID: 5274749379773164445}
   descriptionText: {fileID: 3029775609694920764}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!1 &2882737609161490366
 GameObject:
   m_ObjectHideFlags: 0
@@ -3116,6 +3126,8 @@ MonoBehaviour:
     h\u1EC7 m\u1EB7t tr\u1EDDi."
   infoPanel: {fileID: 7220609512764437993}
   descriptionText: {fileID: 434174020368253274}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!1 &3099663824952405919
 GameObject:
   m_ObjectHideFlags: 0
@@ -3487,6 +3499,8 @@ MonoBehaviour:
   description: 
   infoPanel: {fileID: 0}
   descriptionText: {fileID: 0}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!135 &3958204069043505973
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4058,6 +4072,8 @@ MonoBehaviour:
   description: 
   infoPanel: {fileID: 0}
   descriptionText: {fileID: 0}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!135 &5619663997549869278
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4286,6 +4302,8 @@ MonoBehaviour:
   description: 
   infoPanel: {fileID: 0}
   descriptionText: {fileID: 0}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!135 &6992483400281322287
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4332,7 +4350,7 @@ Transform:
   m_GameObject: {fileID: 3905017772256262792}
   serializedVersion: 2
   m_LocalRotation: {x: -0.63142043, y: -0, z: -0, w: 0.7754407}
-  m_LocalPosition: {x: -1.12, y: 1.15, z: -1.19}
+  m_LocalPosition: {x: -1.1199989, y: 1.15, z: -1.1899986}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -4346,7 +4364,7 @@ Transform:
   - {fileID: 7357504590342546721}
   - {fileID: 6188196545407321488}
   - {fileID: 7114581359488679249}
-  m_Father: {fileID: 6847774849936066488}
+  m_Father: {fileID: 5987393124509692196}
   m_LocalEulerAnglesHint: {x: -78.31, y: 0, z: 0}
 --- !u!1 &3971651911835198336
 GameObject:
@@ -4760,6 +4778,8 @@ MonoBehaviour:
     \u0111\u1EBFn 430\xB0C ban ng\xE0y."
   infoPanel: {fileID: 3454095956455812102}
   descriptionText: {fileID: 8613022274932774744}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!1 &4274001770557943462
 GameObject:
   m_ObjectHideFlags: 0
@@ -6384,6 +6404,8 @@ MonoBehaviour:
   description: 
   infoPanel: {fileID: 0}
   descriptionText: {fileID: 0}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!135 &4631733602344581809
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6749,6 +6771,8 @@ MonoBehaviour:
   description: 
   infoPanel: {fileID: 0}
   descriptionText: {fileID: 0}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!135 &6732306748470856064
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7127,6 +7151,8 @@ MonoBehaviour:
     \u0111\u1EE7 \u0111\u1EC3 l\xE0m ch\u1EA3y ch\xEC."
   infoPanel: {fileID: 4274001770557943462}
   descriptionText: {fileID: 4244472850534086566}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!1 &6015637349310751362
 GameObject:
   m_ObjectHideFlags: 0
@@ -7776,6 +7802,8 @@ MonoBehaviour:
     kh\u1ECFi b\u1EE9c x\u1EA1 M\u1EB7t Tr\u1EDDi."
   infoPanel: {fileID: 7768398196146653022}
   descriptionText: {fileID: 9014690772465948040}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!1 &6783672644755208554
 GameObject:
   m_ObjectHideFlags: 0
@@ -8104,11 +8132,43 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8829921983321641324}
+  - {fileID: 5987393124509692196}
   - {fileID: 480791835925649200}
   - {fileID: 4715468173465233023}
   - {fileID: 3205892241262866225}
   m_Father: {fileID: 773968089980544638}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6949626517881840454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5987393124509692196}
+  m_Layer: 0
+  m_Name: SystemPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5987393124509692196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6949626517881840454}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8829921983321641324}
+  m_Father: {fileID: 6847774849936066488}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6992231221693150403
 GameObject:
@@ -8247,6 +8307,8 @@ MonoBehaviour:
     tr\u01B0ng."
   infoPanel: {fileID: 6242048790417424562}
   descriptionText: {fileID: 4277146367317660961}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!1 &7032326708388529877
 GameObject:
   m_ObjectHideFlags: 0
@@ -9685,7 +9747,8 @@ MonoBehaviour:
   feedbackText: {fileID: 0}
   completePanel: {fileID: 0}
   quizCanvas: {fileID: 0}
-  heightAbovePlanet: 1.5
+  leftOffset: 0.8
+  upOffset: 0.5
   targetCamera: {fileID: 0}
 --- !u!1 &8799332936689331184
 GameObject:
@@ -9881,6 +9944,8 @@ MonoBehaviour:
     tr\u1EDDi, c\xF3 m\xE0u \u0111\u1ECF \u0111\u1EB7c tr\u01B0ng."
   infoPanel: {fileID: 0}
   descriptionText: {fileID: 0}
+  infoCanvas: {fileID: 0}
+  isAnswered: 0
 --- !u!114 &5886273502172550549
 MonoBehaviour:
   m_ObjectHideFlags: 0

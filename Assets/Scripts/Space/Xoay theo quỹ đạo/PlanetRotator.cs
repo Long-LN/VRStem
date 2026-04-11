@@ -21,7 +21,7 @@ public class PlanetRotator : MonoBehaviour
         // Chỉ xoay khi có hành tinh được set
         if (currentPlanet == null)
         {
-            Debug.Log("[PlanetRotator] currentPlanet is NULL");
+            // Debug.Log("[PlanetRotator] currentPlanet is NULL");
             return;
         }
 

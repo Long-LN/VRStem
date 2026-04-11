@@ -21,6 +21,7 @@ public class PlanetVisual : MonoBehaviour
     [TextArea] public string description = "";
     public GameObject infoPanel;
     public TextMeshProUGUI descriptionText;
+    public Canvas infoCanvas;
 
     public bool isAnswered;
 
@@ -37,18 +38,18 @@ public class PlanetVisual : MonoBehaviour
 
     public void ShowMarker()
     {
-        if (marker != null) marker.SetActive(true);
-        if (model != null)  model.SetActive(false);
+        Debug.Log(gameObject.name + " show marker");
+        marker.SetActive(true);
+        model.SetActive(false);
     }
 
     public void ShowModel()
     {
-        if (marker != null) marker.SetActive(false);
-        if (model != null)
-        {
-            model.SetActive(true);
-            model.transform.position = marker != null ? marker.transform.position : transform.position;
-        }
+        Debug.Log(gameObject.name + " show model");
+        marker.SetActive(false);
+        model.SetActive(true);
+        // model.transform.position = marker.transform.position;
+        model.transform.position = SolarSystemFocus.Instance.pivot.position;
     }
 
     public void ShowTooltip()
@@ -97,9 +98,24 @@ public class PlanetVisual : MonoBehaviour
     {
         if (infoPanel == null) return;
         infoPanel.SetActive(true);
-
         if (descriptionText != null)
             descriptionText.text = description;
+        
+
+        // Lấy Canvas từ infoPanel hoặc cha của nó
+        Canvas canvas = infoCanvas;
+        if (canvas == null)
+            canvas = infoPanel.GetComponent<Canvas>();
+        if (canvas == null)
+            canvas = infoPanel.GetComponentInParent<Canvas>();
+        if (canvas == null) return;
+
+        // Ép sang World Space nếu chưa phải
+        if (canvas.renderMode != RenderMode.WorldSpace)
+        {
+            canvas.renderMode = RenderMode.WorldSpace;
+            canvas.transform.localScale = Vector3.one * 0.001f;
+        }
     }
 
     public void HideInfo()
