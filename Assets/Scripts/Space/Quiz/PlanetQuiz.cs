@@ -87,6 +87,10 @@ public class PlanetQuiz : MonoBehaviour
             Debug.LogError("[PlanetQuiz] descriptionUIDocument is NULL! Kéo UIDocument vào Inspector.");
         }
 
+        UIImage firstImg = buttons[0].GetComponent<UIImage>();
+        if (firstImg != null)
+            normalColor = firstImg.color;
+        
         InitAllLabels();
     }
 
@@ -146,10 +150,6 @@ public class PlanetQuiz : MonoBehaviour
             if (btn == null) continue;
             SetupButton(btn, options[i]);
         }
-
-        UIImage firstImg = buttons[0].GetComponent<UIImage>();
-        if (firstImg != null)
-            normalColor = firstImg.color;
 
         foreach (var button in buttons)
         {

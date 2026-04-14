@@ -14,6 +14,7 @@ public class SolarSystemFocus : MonoBehaviour
     
     public float zoomSpeed = 1f;
     public float minScale;
+    public float slowThreshold = 0.2f;
     public float targetScale = 100f;
     public float modelAppearScale = 1f;
     public float questionAppearScale = 95f;
@@ -40,8 +41,8 @@ public class SolarSystemFocus : MonoBehaviour
 
     public void SetSystemScale(float progress)
     {
-        Debug.Log(progress);
         float t = progress / 100f;
+        t = Mathf.SmoothStep(0, 1, t);
         float newScale = Mathf.Lerp(minScale, targetScale, t);
 
         if (pivot != null)
@@ -135,10 +136,11 @@ public class SolarSystemFocus : MonoBehaviour
         while (elapsed < duration && focusIn)
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            t = t * t * (3f - 2f * t);
-
+            float normalizedTime = elapsed / duration;
+            float t = Mathf.SmoothStep(0, 1, normalizedTime);
+        
             float mappedT = Mathf.Lerp(startT, 1f, t);
+
             SetSystemScale(mappedT * 100f);
             handle.UpdateHandleByScale(pivot.localScale.x);
             
@@ -162,8 +164,10 @@ public class SolarSystemFocus : MonoBehaviour
         while (elapsed < duration && focusOut)
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            t = t * t * (3f - 2f * t);
+            float normalizedTime = elapsed / duration;
+
+            // Using a custom ease to ensure it slows down as it reaches the minScale (0.0)
+            float t = Mathf.SmoothStep(0, 1, normalizedTime);
 
             float mappedT = Mathf.Lerp(startT, 0f, t);
             SetSystemScale(mappedT * 100f);

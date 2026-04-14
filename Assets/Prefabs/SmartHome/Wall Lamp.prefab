@@ -215,6 +215,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b43ec4d2b8052f8409862b25bd265412, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4469225698443407001}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b43ec4d2b8052f8409862b25bd265412, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 719077692994251028}
     - targetCorrespondingSourceObject: {fileID: 5845254378945965749, guid: b43ec4d2b8052f8409862b25bd265412, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7790191695286822414}
@@ -458,6 +461,19 @@ MonoBehaviour:
   swingSpeed: 3
   doorRotationAxis: {x: 0, y: 1, z: 0}
   displayScreenUI: {fileID: 0}
+--- !u!114 &719077692994251028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4913417417043947355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90492bba9101d3a499fb95bc717f37a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeviceGrabBroadcaster
+  deviceSocketType: CeilingLamp
 --- !u!4 &5720741095121319393 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b43ec4d2b8052f8409862b25bd265412, type: 3}

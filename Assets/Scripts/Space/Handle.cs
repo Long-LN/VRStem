@@ -71,10 +71,16 @@ public class Handle : MonoBehaviour
         // 4. Áp dụng vị trí đã giới hạn (World Space)
         transform.position = startPoint.TransformPoint(targetDirection.normalized * dot);
 
-        // 5. Tính Progress (0 - 100)
-        progress = (dot / maxDistance) * 100f;
-        float newProgress = (dot / maxDistance) * 100f;
+        // --- NEW MAPPING LOGIC ---
+        // Linear 0 to 1 value based on handle position
+        float linearT = dot / maxDistance; 
 
+        // Square the value (t * t). 
+        // This creates a curve where moving the handle 50% only results in 25% scale.
+        // This gives you much more precision at the low end (minScale).
+        float curvedT = linearT * linearT; 
+
+        float newProgress = curvedT * 100f;
         // KIỂM TRA THAY ĐỔI: Chỉ kích hoạt sự kiện nếu giá trị thực sự thay đổi
         if (!Mathf.Approximately(newProgress, _lastProgress))
         {
@@ -86,7 +92,6 @@ public class Handle : MonoBehaviour
             SolarSystemFocus.Instance.SetSystemScale(progress);
             if (isGrabbed)
             {
-                Debug.Log("Interupt");
                 SolarSystemFocus.Instance.focusIn = false;
                 SolarSystemFocus.Instance.focusOut = false;
             }
@@ -105,6 +110,7 @@ public class Handle : MonoBehaviour
 
         float t = Mathf.InverseLerp(minSystemScale, maxSystemScale, currentSystemScale);
         progress = t * 100f;
+        _lastProgress = progress;
 
         // 2. Cập nhật vị trí Handle theo đường thẳng nối 2 điểm
         Vector3 targetDir = endPoint.position - startPoint.position;
