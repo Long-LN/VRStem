@@ -24,11 +24,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Buffers.unity
     guid: 1275719e98502a941963a15db2acc64d
   - enabled: 1
-    path: Assets/Scenes/Smart Home.unity
-    guid: b6d0728bfef48d046bcb681b84edb32c
-  - enabled: 1
     path: Assets/Scenes/Space 2.unity
     guid: 11659bd96093b3b44a759f8ac6bca711
+  - enabled: 1
+    path: Assets/Scenes/Smart Home.unity
+    guid: b6d0728bfef48d046bcb681b84edb32c
   - enabled: 1
     path: Assets/Scenes/Temp.unity
     guid: 0139e3cb35dad044a94326fc20e1dbeb
