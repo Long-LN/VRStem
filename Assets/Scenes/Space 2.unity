@@ -9032,6 +9032,7 @@ MonoBehaviour:
   handle: {fileID: 9218052294588044915}
   zoomSpeed: 1
   minScale: 0.02
+  slowThreshold: 0.2
   targetScale: 100
   modelAppearScale: 1
   questionAppearScale: 95
