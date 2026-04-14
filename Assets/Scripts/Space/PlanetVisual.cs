@@ -96,31 +96,11 @@ public class PlanetVisual : MonoBehaviour
 
     public void ShowInfo()
     {
-        if (infoPanel == null) return;
-        infoPanel.SetActive(true);
-        if (descriptionText != null)
-            descriptionText.text = description;
-        
-
-        // Lấy Canvas từ infoPanel hoặc cha của nó
-        Canvas canvas = infoCanvas;
-        if (canvas == null)
-            canvas = infoPanel.GetComponent<Canvas>();
-        if (canvas == null)
-            canvas = infoPanel.GetComponentInParent<Canvas>();
-        if (canvas == null) return;
-
-        // Ép sang World Space nếu chưa phải
-        if (canvas.renderMode != RenderMode.WorldSpace)
-        {
-            canvas.renderMode = RenderMode.WorldSpace;
-            canvas.transform.localScale = Vector3.one * 0.001f;
-        }
+        PlanetQuiz.Instance.ShowDescription(planetName);
     }
 
     public void HideInfo()
     {
-        if (infoPanel != null)
-            infoPanel.SetActive(false);
+        PlanetQuiz.Instance.HideDescription();
     }
 }
