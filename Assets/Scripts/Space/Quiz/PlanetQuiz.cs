@@ -310,7 +310,7 @@ public class PlanetQuiz : MonoBehaviour
     // Các hàm xử lý Description Panel
     // ─────────────────────────────────────────────
 
-    private void ShowDescription(string planetName)
+    public void ShowDescription(string planetName)
     {
         if (descriptionUIDocument == null)
         {
@@ -352,7 +352,7 @@ public class PlanetQuiz : MonoBehaviour
         PlaceDescriptionNextToPlanet();
     }
 
-    private void HideDescription()
+    public void HideDescription()
     {
         if (descriptionUIDocument == null) return;
 
