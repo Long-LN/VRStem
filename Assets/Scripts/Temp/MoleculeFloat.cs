@@ -13,7 +13,7 @@ public class MoleculeFloat : MonoBehaviour
     public float maxSpeedCap = 5f;
 
     [Header("Stuck Prevention")]
-    public float stuckCheckInterval = 0.5f;
+    public float stuckCheckInterval = 0.2f;   // giảm từ 0.5 xuống 0.2 để kick nhanh hơn
     public float stuckSpeedThreshold = 0.1f;
 
     Rigidbody rb;
@@ -21,8 +21,15 @@ public class MoleculeFloat : MonoBehaviour
     bool confined = false;
     float savedSpeed = 2f;
 
+    // Thêm 6 hướng thẳng trục để thoát khỏi sàn/tường/trần
     static readonly Vector3[] fixedDirections = new Vector3[]
     {
+        new Vector3( 0,  1,  0),   // thẳng lên
+        new Vector3( 0, -1,  0),   // thẳng xuống
+        new Vector3( 1,  0,  0),   // thẳng phải
+        new Vector3(-1,  0,  0),   // thẳng trái
+        new Vector3( 0,  0,  1),   // thẳng ra
+        new Vector3( 0,  0, -1),   // thẳng vào
         new Vector3( 1,  1,  0).normalized,
         new Vector3(-1,  1,  0).normalized,
         new Vector3( 0,  1,  1).normalized,
@@ -51,7 +58,6 @@ public class MoleculeFloat : MonoBehaviour
         rb.linearVelocity = Vector3.zero;
 
         InvokeRepeating(nameof(StuckCheck), stuckCheckInterval, stuckCheckInterval);
-        // ← bỏ LogSpeed
     }
 
     void StuckCheck()
@@ -62,7 +68,13 @@ public class MoleculeFloat : MonoBehaviour
 
         if (rb.linearVelocity.magnitude < stuckSpeedThreshold)
         {
-            Vector3 dir = fixedDirections[directionIndex % fixedDirections.Length];
+            // Dùng random hoàn toàn thay vì tuần tự để tránh kick vào tường liên tục
+            Vector3 dir = Random.insideUnitSphere.normalized;
+
+            // Fallback nếu random ra vector quá nhỏ
+            if (dir.sqrMagnitude < 0.01f)
+                dir = fixedDirections[directionIndex % fixedDirections.Length];
+
             directionIndex++;
             float speed = Mathf.Max(savedSpeed, 1f);
             rb.linearVelocity = dir * speed;
@@ -136,7 +148,6 @@ public class MoleculeFloat : MonoBehaviour
         if (rb.isKinematic) return;
         if (!collision.gameObject.CompareTag("Molecule")) return;
 
-        // Thêm âm thanh
         TempAudioManager.Instance?.PlaySFX(
             TempAudioManager.Instance.moleculeHitSound, 0.3f);
 
