@@ -45,6 +45,9 @@ public class PlanetQuiz : MonoBehaviour
 
     private PlanetVisual currentPlanetVisual = null;
 
+    // ── GUARD: chặn click khi đang xử lý đáp án ──
+    private bool _isAnswering = false;
+
     // ─────────────────────────────────────────────
     // Description Panel (UI Toolkit)
     // ─────────────────────────────────────────────
@@ -128,6 +131,10 @@ public class PlanetQuiz : MonoBehaviour
     {
         if (answeredPlanets.Contains(planetName)) return;
 
+        // Reset guard khi bắt đầu quiz mới
+        _isAnswering = false;
+        SetButtonsInteractable(true);
+
         correctAnswer       = planetName;
         currentPlanetVisual = visual;
 
@@ -187,8 +194,15 @@ public class PlanetQuiz : MonoBehaviour
 
     private void OnAnswer(UIButton btn, string answer)
     {
+        // ── GUARD: bỏ qua nếu đang xử lý rồi ──
+        if (_isAnswering) return;
+
         if (answer == correctAnswer)
         {
+            // Khoá toàn bộ buttons + set flag ngay lập tức
+            _isAnswering = true;
+            SetButtonsInteractable(false);
+
             SetButtonColor(btn, Color.green);
 
             if (_feedbackText != null)
@@ -203,8 +217,16 @@ public class PlanetQuiz : MonoBehaviour
             if (currentPlanetVisual != null)
                 currentPlanetVisual.ShowCorrectLabel();
 
-            if (audioSource != null && correctClip != null)
-                audioSource.PlayOneShot(correctClip);
+            // Stop trước để đảm bảo không còn wrongClip nào đang phát
+            if (audioSource != null)
+            {
+                audioSource.Stop();
+                if (correctClip != null)
+                {
+                    audioSource.clip = correctClip;
+                    audioSource.Play();
+                }
+            }
 
             StartCoroutine(CorrectRoutine());
         }
@@ -218,8 +240,16 @@ public class PlanetQuiz : MonoBehaviour
                 _feedbackText.color = Color.red;
             }
 
-            if (audioSource != null && wrongClip != null)
-                audioSource.PlayOneShot(wrongClip);
+            // Stop clip cũ trước khi phát wrongClip mới → không chồng âm
+            if (audioSource != null)
+            {
+                audioSource.Stop();
+                if (wrongClip != null)
+                {
+                    audioSource.clip = wrongClip;
+                    audioSource.Play();
+                }
+            }
         }
     }
 
@@ -233,11 +263,41 @@ public class PlanetQuiz : MonoBehaviour
 
         if (AnswerTrigger.Instance != null)
         {
-            ShowDescription(correctAnswer);
+            // [SỬA] Ẩn khung an toàn thông qua biến sliderPanel
+            if (SolarSystemFocus.Instance != null && SolarSystemFocus.Instance.sliderPanel != null)
+                SolarSystemFocus.Instance.sliderPanel.SetActive(false);
+
+            PlanetVisual[] allVisuals = FindObjectsOfType<PlanetVisual>(true);
+            foreach (var v in allVisuals)
+            {
+                if (v.planetName == correctAnswer && v.infoPanel != null)
+                {
+                    v.infoPanel.SetActive(true);
+                    
+                    if (v.descriptionText != null)
+                        v.descriptionText.text = v.description;
+
+                    // [THÊM MỚI] Cho phép xoay hành tinh TO
+                    if (PlanetRotator.Instance != null)
+                        PlanetRotator.Instance.SetPlanet(v.model);
+
+                    // [THÊM MỚI] Dừng script tự xoay để đứng yên cho người dùng xoay thủ công
+                    PlanetOrbit orbit = v.GetComponentInParent<PlanetOrbit>();
+                    if (orbit != null) orbit.enabled = false;
+                }
+            }
 
             AnswerTrigger.Instance.PlayDescription(correctAnswer, () =>
             {
-                HideDescription();
+                foreach (var v in allVisuals)
+                {
+                    if (v.planetName == correctAnswer && v.infoPanel != null)
+                        v.infoPanel.SetActive(false);
+                }
+
+                // [SỬA] Hiện lại cụm thanh slider an toàn
+                if (SolarSystemFocus.Instance != null && SolarSystemFocus.Instance.sliderPanel != null)
+                    SolarSystemFocus.Instance.sliderPanel.SetActive(true);
 
                 if (SolarSystemFocus.Instance != null)
                     SolarSystemFocus.Instance.ZoomOut();
@@ -268,6 +328,18 @@ public class PlanetQuiz : MonoBehaviour
             completePanel.SetActive(true);
         else
             Debug.LogError("[PlanetQuiz] ShowComplete() → completePanel is NULL!");
+    }
+
+    // Bật/tắt toàn bộ buttons cùng lúc
+    private void SetButtonsInteractable(bool interactable)
+    {
+        if (buttons == null) return;
+        foreach (var go in buttons)
+        {
+            if (go == null) continue;
+            UIButton btn = go.GetComponent<UIButton>();
+            if (btn != null) btn.interactable = interactable;
+        }
     }
 
     private void SetButtonColor(UIButton btn, Color color)
@@ -307,7 +379,7 @@ public class PlanetQuiz : MonoBehaviour
     public bool IsAnswered(string planetName) => answeredPlanets.Contains(planetName);
 
     // ─────────────────────────────────────────────
-    // Các hàm xử lý Description Panel
+    // Các hàm xử lý Description Panel (Giữ nguyên không đổi)
     // ─────────────────────────────────────────────
 
     public void ShowDescription(string planetName)
