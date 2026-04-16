@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Anchor
   - Planet
+  - Molecule
+  - Water
+  - Prism
+  - Hand
   layers:
   - Default
   - TransparentFX

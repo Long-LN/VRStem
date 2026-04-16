@@ -12,6 +12,9 @@ public class SolarSystemFocus : MonoBehaviour
     public PlanetController planetController;
     public Handle handle;
     
+    [Header("UI Khung Slider")]
+    public GameObject sliderPanel; // [THÊM MỚI] Chứa toàn bộ khung xám và text
+    
     public float zoomSpeed = 1f;
     public float minScale;
     public float slowThreshold = 0.2f;
@@ -38,7 +41,6 @@ public class SolarSystemFocus : MonoBehaviour
         pivot = solarRoot.parent;
     }
     
-
     public void SetSystemScale(float progress)
     {
         float t = progress / 100f;
@@ -49,11 +51,6 @@ public class SolarSystemFocus : MonoBehaviour
         {
             pivot.localScale = Vector3.one * newScale;
 
-            // CHỈ LERP VỊ TRÍ NẾU ĐANG DÙNG PIVOT ẢO (đang focus)
-            // if (pivot != solarRoot) 
-            // {
-            //     pivot.position = Vector3.Lerp(_startPivotPos, _targetPivotPos, t);
-            // }
             if(_startPivotPos != Vector3.zero)
                 pivot.position = Vector3.Lerp(_startPivotPos, _targetPivotPos, t);
         }
@@ -64,7 +61,6 @@ public class SolarSystemFocus : MonoBehaviour
         planetVisual = visual;
         planetSelectable = planet.GetComponent<PlanetSelectable>();
         planetController.SetPlanetZoom(visual);
-        // dùng hàm ChangePivot
         Debug.Log(planet.name);
         pivot = ChangePivot(solarRoot, planet.position); 
         
@@ -111,7 +107,6 @@ public class SolarSystemFocus : MonoBehaviour
         focusIn = false;
         StartCoroutine(ZoomOutRoutine());
         
-        // BẬT LẠI QUỸ ĐẠO khi zoom out
         if (planetVisual != null)
         {
             PlanetVisual bigVisual = planetController.bigPlanets.Find(p => p.planetName == planetVisual.planetName);
@@ -153,7 +148,7 @@ public class SolarSystemFocus : MonoBehaviour
     
     private IEnumerator ZoomOutRoutine()
     {
-    float elapsed = 0f;
+        float elapsed = 0f;
         float currentT = (pivot.localScale.x - minScale) / (targetScale - minScale);
         if (float.IsNaN(currentT) || float.IsInfinity(currentT)) currentT = 1f;
         currentT = Mathf.Clamp01(currentT);
@@ -166,7 +161,6 @@ public class SolarSystemFocus : MonoBehaviour
             elapsed += Time.deltaTime;
             float normalizedTime = elapsed / duration;
 
-            // Using a custom ease to ensure it slows down as it reaches the minScale (0.0)
             float t = Mathf.SmoothStep(0, 1, normalizedTime);
 
             float mappedT = Mathf.Lerp(startT, 0f, t);
@@ -179,8 +173,6 @@ public class SolarSystemFocus : MonoBehaviour
         SetSystemScale(0f);
         handle.UpdateHandleByScale(minScale);
         
-
-        // Reset flag để lần zoom sau hoạt động bình thường
         showModel = false;
         showInfor = false;
 
@@ -192,34 +184,24 @@ public class SolarSystemFocus : MonoBehaviour
     {
         Transform pivotTransform;
 
-        // 1. Kiểm tra xem object đã nằm trong một SystemPivot chưa
         bool alreadyHasPivot = objectToMove.parent != null && objectToMove.parent.name=="SystemPivot"; 
-        // Mẹo: Nên dùng Tag thay vì Name để check nhanh hơn
 
         if (alreadyHasPivot)
         {
             pivotTransform = objectToMove.parent;
-            // Tách ra tạm thời để tính toán vị trí mới của pivot mà không kéo theo object
             objectToMove.SetParent(pivotTransform.parent, true);
         }
         else
         {
             GameObject pivotObj = new GameObject("SystemPivot");
-            // pivotObj.tag = "SystemPivot"; // Nếu bạn dùng Tag
             pivotTransform = pivotObj.transform;
             pivotTransform.SetParent(objectToMove.parent, true);
         }
 
-        // 2. Cập nhật vị trí và xoay cho Pivot
         pivotTransform.position = newPivotPosition;
-    
-        // Giữ nguyên Rotation hiện tại của Object để tránh bị giật (snap) khi gán cha
         pivotTransform.rotation = objectToMove.rotation;
-    
-        // 3. Gắn Object lại vào Pivot mới
         objectToMove.SetParent(pivotTransform, true);
 
         return pivotTransform;
     }
-    
 }
