@@ -77,6 +77,7 @@ public class SolarSystemFocus : MonoBehaviour
             currentPlanetVisual.ShowModel();
             _startPivotPos = pivot.position;
             showModel = true;
+            planetSelectable.orbit.SetRingVisible(false);
         }
         else if (solarRoot.lossyScale.x < modelAppearScale && showModel)
         {
@@ -85,6 +86,7 @@ public class SolarSystemFocus : MonoBehaviour
             
             if (currentPlanetVisual.planetName == "Sun") return;
             planetSelectable.ResetFocus();
+            planetSelectable.orbit.SetRingVisible(true);
         }
 
         if (pivot.lossyScale.x >= questionAppearScale && !showInfor)
