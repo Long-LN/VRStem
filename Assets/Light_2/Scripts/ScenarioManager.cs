@@ -36,6 +36,7 @@ public class ScenarioManager : MonoBehaviour
 
     private Coroutine autoAdvanceCoroutine;
     private bool isWaitingToAdvance = false;
+    private bool isAudioFinished = false;
 
     void Start()
     {
@@ -63,41 +64,44 @@ public class ScenarioManager : MonoBehaviour
         }
     }
 
-    // Kiểm tra hoàn thành THỬ THÁCH (Thao tác tay)
     void CheckAutoProgress()
     {
-        // Chỉ kiểm tra khi KHÔNG trong trạng thái chờ nhảy bước tự động
-        if (isWaitingToAdvance)
+        // KHÔNG tiến triển nếu:
+        // 1. Đang trong thời gian delay để nhảy bước (isWaitingToAdvance)
+        // 2. Hoặc Audio hướng dẫn chưa đọc xong (!isAudioFinished)
+        if (isWaitingToAdvance || !isAudioFinished)
             return;
 
-        if (currentStep == 3) // THỬ THÁCH 1: Khúc xạ
+        // THỬ THÁCH 1: Khúc xạ
+        if (currentStep == 3)
         {
-            if (
-                visualization != null
-                && visualization.currentAngleR >= 35f
-                && visualization.currentAngleR <= 40f
-            )
+            if (visualization != null 
+                && visualization.currentAngleR >= 35f 
+                && visualization.currentAngleR <= 40f)
             {
                 AdvanceStepWithDelay(1.5f);
             }
         }
-        else if (currentStep == 4) // THỬ THÁCH 2: TIR
+        // THỬ THÁCH 2: Phản xạ toàn phần (TIR)
+        else if (currentStep == 4)
         {
             if (mainLaser != null && targetWaterTank != null)
             {
-                if (
-                    mainLaser.environmentRefractiveIndex > targetWaterTank.refractiveIndex
-                    && visualization.isTIR
-                )
+                if (mainLaser.environmentRefractiveIndex > targetWaterTank.refractiveIndex
+                    && visualization.isTIR)
                 {
                     AdvanceStepWithDelay(2f);
                 }
             }
         }
-        else if (currentStep == 8) // THỰC HÀNH: Prism
+        // THỰC HÀNH: Tán sắc qua lăng kính (Prism)
+        else if (currentStep == 8)
         {
+            // Kiểm tra nếu laser đã chiếu trúng lăng kính
             if (dispersionPrismLaser != null && dispersionPrismLaser.isHittingPrism)
             {
+                // Chỉ khi đã nghe xong audio ở bước 8 (isAudioFinished == true)
+                // thì mới kích hoạt việc kết thúc bài học
                 AdvanceStepWithDelay(2f);
             }
         }
@@ -142,29 +146,29 @@ public class ScenarioManager : MonoBehaviour
             return;
 
         AudioClip currentClip = stepClips[currentStep];
-
         if (currentClip != null)
         {
-            // 1. Phát âm thanh
+            isAudioFinished = false; // Reset cờ mỗi khi sang bước mới
             scenarioAudioSource.Stop();
             scenarioAudioSource.clip = currentClip;
             scenarioAudioSource.Play();
 
-            // 2. Kiểm tra xem bước này có phải là bước tự động chuyển (Lý thuyết) không?
-            // Các bước Lý thuyết: 0, 1, 2, 5, 6, 7, 9
-            // Các bước Thử thách: 3, 4, 8 (Sẽ đợi CheckAutoProgress)
-            bool isTheoryStep = (currentStep != 3 && currentStep != 4 && currentStep != 8);
+            // Bất kể là bước nào, cũng đợi audio xong mới bật cờ isAudioFinished
+            StartCoroutine(WaitForAudioToEnd(currentClip.length));
 
+            bool isTheoryStep = (currentStep != 3 && currentStep != 4 && currentStep != 8);
             if (isTheoryStep)
             {
-                if (autoAdvanceCoroutine != null)
-                    StopCoroutine(autoAdvanceCoroutine);
-                // Đợi hết chiều dài Audio + 1 giây nghỉ rồi mới AdvanceStep
-                autoAdvanceCoroutine = StartCoroutine(
-                    AutoAdvanceAfterAudio(currentClip.length + 1.0f)
-                );
+                if (autoAdvanceCoroutine != null) StopCoroutine(autoAdvanceCoroutine);
+                autoAdvanceCoroutine = StartCoroutine(AutoAdvanceAfterAudio(currentClip.length + 1.0f));
             }
         }
+    }
+
+    IEnumerator WaitForAudioToEnd(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        isAudioFinished = true; // Đã nghe xong audio!
     }
 
     IEnumerator AutoAdvanceAfterAudio(float duration)
@@ -180,43 +184,43 @@ public class ScenarioManager : MonoBehaviour
         {
             case 0:
                 menuBoardText.text =
-                    "<b>XIN CHÀO!</b>\nChào mừng bạn đến với phòng thí nghiệm vật lý ánh sáng thực tế ảo (VR).";
+                    "<b>XIN CHÀO!</b>\n\nChào mừng bạn đến với phòng thí nghiệm vật lý ánh sáng thực tế ảo (VR).";
                 break;
             case 1:
                 menuBoardText.text =
-                    "<b>ĐẶT VẤN ĐỀ:</b>\nBạn có bao giờ nhìn thấy một chiếc đũa hoặc một vật thể đi vào trong nước bị \"gãy\" hoặc cong đi chưa?\n\nTại sao ánh sáng lại không đi thẳng như bình thường?";
+                    "<b>ĐẶT VẤN ĐỀ:</b>\n\nBạn có bao giờ nhìn thấy một chiếc đũa hoặc một vật thể đi vào trong nước bị \"gãy\" hoặc cong đi chưa?\n\nTại sao ánh sáng lại không đi thẳng như bình thường?";
                 break;
             case 2:
                 menuBoardText.text =
-                    "<b>GIẢI THÍCH:</b>\nĐó là do hiện tượng <b>Khúc Xạ Ánh Sáng</b>.\n\nKhi ánh sáng đi từ môi trường này sang môi trường khác (ví dụ: không khí → nước), tốc độ ánh sáng thay đổi làm tia sáng bị bẻ cong.\n\nĐịnh lý này được miêu tả bằng Định luật Snell.";
+                    "<b>GIẢI THÍCH:</bn>\n\nĐó là do hiện tượng <b>Khúc Xạ Ánh Sáng</b>.\n\nKhi ánh sáng đi từ môi trường này sang môi trường khác (ví dụ: không khí → nước), tốc độ ánh sáng thay đổi làm tia sáng bị bẻ cong.\n\nĐịnh lý này được miêu tả bằng Định luật Snell.";
                 break;
             case 3:
                 menuBoardText.text =
-                    "<b>THỬ THÁCH 1: TÌM GÓC KHÚC XẠ</b>\nHãy dùng tay xoay đèn Laser chiếu vào Bể nước sao cho bắt được <b>góc khúc xạ r</b> ở nửa dưới mặt nước dao động trong khoảng <b>35° - 40°</b>.\n\n<i>Hệ thống tự động quét tia sáng của bạn...</i>";
+                    "<b>THỬ THÁCH 1: TÌM GÓC KHÚC XẠ</b>\n\nHãy dùng tay xoay đèn Laser chiếu vào Bể nước sao cho bắt được <b>góc khúc xạ r</b> ở nửa dưới mặt nước dao động trong khoảng <b>35° - 40°</b>.\n\n<i>Hệ thống tự động quét tia sáng của bạn...</i>";
                 break;
             case 4:
                 menuBoardText.text =
-                    "<b>THỬ THÁCH 2: PHẢN XẠ TOÀN PHẦN</b>\n Hãy <b>Bấm Nút</b> để bơm hóa chất, biến đổi <b>Chiết suất của Môi trường bên ngoài</b> sao cho đặc hơn cả khối Nước (n Môi trường > n Nước).\n\n Nhờ Môi trường giờ đây đặc hơn Nước, hãy thử chiếu Laser chéo góc từ ngoài vào bể để quan sát ánh sáng bị phản dội ngược lại hoàn toàn (TIR)!";
+                    "<b>THỬ THÁCH 2: PHẢN XẠ TOÀN PHẦN</b>\n\n Hãy bấm nút để biến đổi chiết suất của Môi trường bên ngoài sao cho đặc hơn cả khối Nước (n Môi trường > n Nước).Và quan sát hiện tượng.";
                 break;
             case 5:
                 menuBoardText.text =
-                    "<b>GIẢI THÍCH PHẢN XẠ TOÀN PHẦN:</b>\nTuyệt vời! Bạn vừa tự tay tạo ra hiện tượng <b>Phản xạ Toàn phần</b>.\nÁnh sáng bị dội ngược lại như một tấm gương soi do nó muốn đi từ môi trường chiết suất Cao (Khí) sang Thấp (Nước), nhưng lại va đập với ranh giới ở góc quá lớn khiến tia sáng bị dội ngược trở lại.\n(Đây là nguyên lý của cáp quang truyền Internet).";
+                    "<b>GIẢI THÍCH PHẢN XẠ TOÀN PHẦN:</b>\n\n Ánh sáng bị dội ngược lại như một tấm gương soi do nó muốn đi từ môi trường chiết suất Cao sang Thấp, nhưng lại va đập với ranh giới ở góc quá lớn khiến tia sáng bị dội ngược trở lại.\n(Đây là nguyên lý của cáp quang truyền Internet).";
                 break;
             case 6:
                 menuBoardText.text =
-                    "<b>ĐẶT VẤN ĐỀ:</b>\nLại một câu hỏi nữa!\n\nBạn có bao giờ nhìn thấy Cầu vồng lấp lánh xuất hiện sau cơn mưa rào?\nHoặc ánh sáng trắng khi đi qua những con suốt kim cương lăng kính lại tách thành 7 màu lấp lánh?";
+                    "<b>ĐẶT VẤN ĐỀ:</b>\n\nBạn có bao giờ nhìn thấy Cầu vồng lấp lánh xuất hiện sau cơn mưa rào?\nHoặc ánh sáng trắng khi đi qua những lăng kính lại tách thành 7 màu lấp lánh?";
                 break;
             case 7:
                 menuBoardText.text =
-                    "<b>GIẢI THÍCH TÁN SẮC:</b>\nHiện tượng này gọi là <b>Tán sắc ánh sáng</b>.\nÁnh sáng trắng thực chất gồm 7 dải màu gộp lại (Đỏ -> Tím).\nMỗi màu có tần số và mức độ bẻ cong khác nhau: Tím bẻ cong nhiều nhất, Đỏ bẻ cong ít nhất.\n Kết quả: Chúng tách rời nhau ra khỏi dòng tụ tạo thành cầu vồng vạn hoa.";
+                    "<b>GIẢI THÍCH TÁN SẮC:</b>\n\nHiện tượng này gọi là <b>Tán sắc ánh sáng</b>.\nÁnh sáng trắng thực chất gồm 7 dải màu gộp lại (Đỏ -> Tím).\nMỗi màu có tần số và mức độ bẻ cong khác nhau: Tím bẻ cong nhiều nhất, Đỏ bẻ cong ít nhất.\n Kết quả: Chúng tách rời nhau ra khi đi qua một môi trường khác";
                 break;
             case 8:
                 menuBoardText.text =
-                    "<b>THỰC HÀNH TÁN SẮC:</b>\n Nhiệm vụ: Hãy cầm đèn Laser và chiếu thẳng vào khối <b>Lăng Kính (Prism)</b>.\n\nQuan sát xem làm thế nào ánh sáng trắng tĩnh lặng bị khối thủy tinh tách cấu trúc thành 7 dải màu cầu vồng rực rỡ nhé!";
+                    "<b>THỰC HÀNH TÁN SẮC:</b>\n\n Hãy cầm đèn Laser và chiếu thẳng vào <b>Lăng Kính (Prism)</b>.\n\nQuan sát hiện tượng: Tán sắc ánh sáng!";
                 break;
             case 9:
                 menuBoardText.text =
-                    "<b>KẾT THÚC BÀI HỌC!</b>\nTuyệt vời! Hoàn hảo!\nBạn đã tự tay thực hành xong bộ thí nghiệm Khúc Xạ, Phản Xạ Toàn Phẩn (TIR) và Tán Sắc Lăng Hình.\nCảm ơn bạn đã trải nghiệm VRStem như một nguyên lý khoa học thực thụ!";
+                    "<b>KẾT THÚC BÀI HỌC!</b>\n\nBạn đã tự tay thực hành các thí nghiệm và quan sát các hiện tượng về khúc xạ ánh sáng. \n Cảm ơn bạn đã tham gia bài học này!\n Hãy quay lại menu để tham khảo các bài học khác nhé!";
                 break;
         }
     }

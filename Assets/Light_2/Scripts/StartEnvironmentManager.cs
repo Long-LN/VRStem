@@ -5,24 +5,24 @@ public class StartEnvironmentManager : MonoBehaviour
     public static bool shouldAutoStart = false;
 
     public Light sun;
-    public Material skyboxMaterial;
+    public Material skyboxDayMaterial;
+    public Material skyboxNightMaterial;
     public GameObject menuBoard;
     public GameObject plane;
     public GameObject hub;
     public GameObject startButton;
+    public SequenceSoundManager sequenceSoundManager;
 
     private void Start()
     {
         if (shouldAutoStart)
         {
             StartEnvironment();
-            shouldAutoStart = false; // Chạy xong thì tắt cờ để lần sau Load bình thường
-            return; // Thoát hàm Start, không chạy logic ẩn môi trường bên dưới
+            shouldAutoStart = false; 
+            return; 
         }
         // 1. Chỉnh môi trường về màu đen tuyệt đối
-        RenderSettings.skybox = null; // Bỏ skybox
-        RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-        RenderSettings.ambientLight = Color.black; // Chỉnh ánh sáng môi trường thành màu đen
+        RenderSettings.skybox = skyboxNightMaterial; // Bỏ skybox
 
         // 2. Tắt ánh sáng mặt trời
         if (sun != null)
@@ -39,16 +39,25 @@ public class StartEnvironmentManager : MonoBehaviour
         {
             plane.GetComponent<MeshRenderer>().enabled = false;
         }
+        // 5. Phát âm thanh
+        if (shouldAutoStart)
+        {
+            StartEnvironment();
+
+            if (sequenceSoundManager != null)
+                sequenceSoundManager.StartFromStep(1);
+
+            shouldAutoStart = false;
+            return;
+        }
     }
 
     public void StartEnvironment()
     {
         // 1. Bật lại bầu trời và ánh sáng môi trường
-        if (skyboxMaterial != null)
+        if (skyboxDayMaterial != null)
         {
-            RenderSettings.skybox = skyboxMaterial;
-            // Trả lại chế độ ánh sáng theo Skybox
-            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
+            RenderSettings.skybox = skyboxDayMaterial;
         }
 
         // 2. Bật ánh sáng mặt trời
@@ -68,7 +77,12 @@ public class StartEnvironmentManager : MonoBehaviour
         // 4. Cập nhật lại toàn bộ ánh sáng cảnh vật
         DynamicGI.UpdateEnvironment();
 
-        // 5. Ẩn nút Start
+        // 5. Phát sound cho nút Start
+        if (sequenceSoundManager != null)
+        sequenceSoundManager.TriggerStartButton();
+        
+
+        // 6. Ẩn nút Start
         if (startButton != null)
             startButton.SetActive(false);
     }
