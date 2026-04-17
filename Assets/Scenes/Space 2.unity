@@ -2525,7 +2525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &508875255
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5473,10 +5473,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 12733116}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200.795, y: -68.41}
+  m_SizeDelta: {x: 401.59, y: 136.82}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1136721625
 MonoBehaviour:
@@ -10178,6 +10178,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6232745470614056090, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_StepOffset
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7537250554189092429, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_RenderPostProcessing
       value: 1
@@ -10539,7 +10543,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1360210380772573939, guid: 3e6fab17bb4e606438de83608424337f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -63.179993
+      objectReference: {fileID: 0}
+    - target: {fileID: 1360210380772573939, guid: 3e6fab17bb4e606438de83608424337f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1360210380772573939, guid: 3e6fab17bb4e606438de83608424337f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10587,6 +10595,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1360210380772573939, guid: 3e6fab17bb4e606438de83608424337f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1360210380772573939, guid: 3e6fab17bb4e606438de83608424337f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
