@@ -29,7 +29,7 @@ public class SolarSystemFocus : MonoBehaviour
     public bool focusIn;
     public bool focusOut;
 
-    public PlanetVisual planetVisual;
+    [FormerlySerializedAs("planetVisual")] public PlanetVisual currentPlanetVisual;
     public PlanetSelectable planetSelectable;
     
     private Vector3 _startPivotPos = Vector3.zero;
@@ -58,7 +58,7 @@ public class SolarSystemFocus : MonoBehaviour
 
     public void FocusPlanet(Transform planet, PlanetVisual visual)
     {
-        planetVisual = visual;
+        currentPlanetVisual = visual;
         planetSelectable = planet.GetComponent<PlanetSelectable>();
         planetController.SetPlanetZoom(visual);
         Debug.Log(planet.name);
@@ -74,29 +74,29 @@ public class SolarSystemFocus : MonoBehaviour
     {
         if (solarRoot.lossyScale.x >= modelAppearScale && !showModel)
         {
-            planetVisual.ShowModel();
+            currentPlanetVisual.ShowModel();
             _startPivotPos = pivot.position;
             showModel = true;
         }
         else if (solarRoot.lossyScale.x < modelAppearScale && showModel)
         {
-            planetVisual.ShowMarker();
+            currentPlanetVisual.ShowMarker();
             showModel = false;
             
-            if (planetVisual.planetName == "Sun") return;
+            if (currentPlanetVisual.planetName == "Sun") return;
             planetSelectable.ResetFocus();
         }
 
         if (pivot.lossyScale.x >= questionAppearScale && !showInfor)
         {
-            if (planetVisual.planetName == "Sun") return;
-            quizAndInforManager.ShowPanel(planetVisual.planetName);
+            if (currentPlanetVisual.planetName == "Sun") return;
+            quizAndInforManager.ShowPanel(currentPlanetVisual.planetName);
             showInfor = true;
         }
         else if (pivot.lossyScale.x < questionAppearScale && showInfor)
         {
-            if (planetVisual.planetName == "Sun") return;
-            quizAndInforManager.HidePanel(planetVisual.planetName);
+            if (currentPlanetVisual.planetName == "Sun") return;
+            quizAndInforManager.HidePanel(currentPlanetVisual.planetName);
             showInfor = false;
         }
     }
@@ -107,9 +107,9 @@ public class SolarSystemFocus : MonoBehaviour
         focusIn = false;
         StartCoroutine(ZoomOutRoutine());
         
-        if (planetVisual != null)
+        if (currentPlanetVisual != null)
         {
-            PlanetVisual bigVisual = planetController.bigPlanets.Find(p => p.planetName == planetVisual.planetName);
+            PlanetVisual bigVisual = planetController.bigPlanets.Find(p => p.planetName == currentPlanetVisual.planetName);
             if (bigVisual != null)
             {
                 PlanetOrbit[] orbits = bigVisual.GetComponentsInParent<PlanetOrbit>();

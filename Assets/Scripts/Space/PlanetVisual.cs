@@ -33,7 +33,8 @@ public class PlanetVisual : MonoBehaviour
 
     private void Start()
     {
-        if (infoPanel != null) infoPanel.SetActive(false);
+        infoPanel = PlanetQuiz.Instance.InforPanel;
+        descriptionText = infoPanel.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     public void ShowMarker()
@@ -93,14 +94,5 @@ public class PlanetVisual : MonoBehaviour
         if (labelPanel != null)
             labelPanel.SetActive(false);
     }
-
-    public void ShowInfo()
-    {
-        PlanetQuiz.Instance.ShowDescription(planetName);
-    }
-
-    public void HideInfo()
-    {
-        PlanetQuiz.Instance.HideDescription();
-    }
+    
 }

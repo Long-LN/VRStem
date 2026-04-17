@@ -37,10 +37,6 @@ public class QuizAndInforManager : MonoBehaviour
         {
             bigPlanetVisual.infoPanel.SetActive(false);
         }
-        else
-        {
-            bigPlanetVisual.HideInfo();
-        }
     }
 
     IEnumerator ShowDelayQuiz()

@@ -20,6 +20,8 @@ public class PlanetQuiz : MonoBehaviour
     public GameObject[] buttons;
     public TextMeshProUGUI _feedbackText;
 
+    public GameObject InforPanel;
+
     private Color normalColor;
 
     public GameObject completePanel;
@@ -47,12 +49,7 @@ public class PlanetQuiz : MonoBehaviour
 
     // ── GUARD: chặn click khi đang xử lý đáp án ──
     private bool _isAnswering = false;
-
-    // ─────────────────────────────────────────────
-    // Description Panel (UI Toolkit)
-    // ─────────────────────────────────────────────
-    [Header("Description Panel")]
-    public UIDocument descriptionUIDocument;
+    
 
     private VisualElement _descRoot;
     private UILabel _planetNameLabel;
@@ -76,19 +73,7 @@ public class PlanetQuiz : MonoBehaviour
             _feedbackText.text = "";
         else
             Debug.LogWarning("[PlanetQuiz] _feedbackText is NULL! Assign it in Inspector.");
-
-        // Ẩn description panel ngay từ đầu
-        if (descriptionUIDocument != null)
-        {
-            descriptionUIDocument.gameObject.SetActive(false);
-            var root = descriptionUIDocument.rootVisualElement;
-            if (root != null)
-                root.style.display = DisplayStyle.None;
-        }
-        else
-        {
-            Debug.LogError("[PlanetQuiz] descriptionUIDocument is NULL! Kéo UIDocument vào Inspector.");
-        }
+        
 
         UIImage firstImg = buttons[0].GetComponent<UIImage>();
         if (firstImg != null)
@@ -266,34 +251,29 @@ public class PlanetQuiz : MonoBehaviour
             // [SỬA] Ẩn khung an toàn thông qua biến sliderPanel
             if (SolarSystemFocus.Instance != null && SolarSystemFocus.Instance.sliderPanel != null)
                 SolarSystemFocus.Instance.sliderPanel.SetActive(false);
-
-            PlanetVisual[] allVisuals = FindObjectsOfType<PlanetVisual>(true);
-            foreach (var v in allVisuals)
+            
+            if (currentPlanetVisual.planetName == correctAnswer && currentPlanetVisual.infoPanel != null)
             {
-                if (v.planetName == correctAnswer && v.infoPanel != null)
-                {
-                    v.infoPanel.SetActive(true);
-                    
-                    if (v.descriptionText != null)
-                        v.descriptionText.text = v.description;
+                currentPlanetVisual.infoPanel.SetActive(true);
+                
+                if (currentPlanetVisual.descriptionText != null)
+                    currentPlanetVisual.descriptionText.text = currentPlanetVisual.model.GetComponent<PlanetVisual>().description;
 
-                    // [THÊM MỚI] Cho phép xoay hành tinh TO
-                    if (PlanetRotator.Instance != null)
-                        PlanetRotator.Instance.SetPlanet(v.model);
+                // [THÊM MỚI] Cho phép xoay hành tinh TO
+                if (PlanetRotator.Instance != null)
+                    PlanetRotator.Instance.SetPlanet(currentPlanetVisual.model);
 
-                    // [THÊM MỚI] Dừng script tự xoay để đứng yên cho người dùng xoay thủ công
-                    PlanetOrbit orbit = v.GetComponentInParent<PlanetOrbit>();
-                    if (orbit != null) orbit.enabled = false;
-                }
+                // [THÊM MỚI] Dừng script tự xoay để đứng yên cho người dùng xoay thủ công
+                PlanetOrbit orbit = currentPlanetVisual.GetComponentInParent<PlanetOrbit>();
+                if (orbit != null) orbit.enabled = false;
+            
             }
 
             AnswerTrigger.Instance.PlayDescription(correctAnswer, () =>
             {
-                foreach (var v in allVisuals)
-                {
-                    if (v.planetName == correctAnswer && v.infoPanel != null)
-                        v.infoPanel.SetActive(false);
-                }
+
+                if (currentPlanetVisual.planetName == correctAnswer && currentPlanetVisual.infoPanel != null)
+                    currentPlanetVisual.infoPanel.SetActive(false);
 
                 // [SỬA] Hiện lại cụm thanh slider an toàn
                 if (SolarSystemFocus.Instance != null && SolarSystemFocus.Instance.sliderPanel != null)
@@ -377,79 +357,4 @@ public class PlanetQuiz : MonoBehaviour
     }
 
     public bool IsAnswered(string planetName) => answeredPlanets.Contains(planetName);
-
-    // ─────────────────────────────────────────────
-    // Các hàm xử lý Description Panel (Giữ nguyên không đổi)
-    // ─────────────────────────────────────────────
-
-    public void ShowDescription(string planetName)
-    {
-        if (descriptionUIDocument == null)
-        {
-            Debug.LogError("[PlanetQuiz] descriptionUIDocument là NULL!");
-            return;
-        }
-
-        descriptionUIDocument.gameObject.SetActive(true);
-
-        _descRoot = descriptionUIDocument.rootVisualElement;
-        if (_descRoot == null)
-        {
-            Debug.LogError("[PlanetQuiz] rootVisualElement là NULL sau SetActive(true)!");
-            return;
-        }
-
-        _descRoot.style.display = DisplayStyle.Flex;
-
-        _planetNameLabel      = _descRoot.Q<UILabel>("planet-name");
-        _descriptionTextLabel = _descRoot.Q<UILabel>("description-text");
-
-        if (_planetNameLabel == null)
-            Debug.LogError("[PlanetQuiz] Không tìm thấy Label 'planet-name' trong UXML!");
-        if (_descriptionTextLabel == null)
-            Debug.LogError("[PlanetQuiz] Không tìm thấy Label 'description-text' trong UXML!");
-
-        PlanetVisual[] allVisuals = FindObjectsOfType<PlanetVisual>();
-        PlanetVisual target = System.Array.Find(allVisuals, v => v.planetName == planetName);
-
-        if (target == null)
-            Debug.LogWarning($"[PlanetQuiz] Không tìm thấy PlanetVisual cho '{planetName}'!");
-
-        if (_planetNameLabel != null)
-            _planetNameLabel.text = planetName;
-
-        if (_descriptionTextLabel != null)
-            _descriptionTextLabel.text = target != null ? target.description : "(Không có mô tả)";
-
-        PlaceDescriptionNextToPlanet();
-    }
-
-    public void HideDescription()
-    {
-        if (descriptionUIDocument == null) return;
-
-        var root = descriptionUIDocument.rootVisualElement;
-        if (root != null)
-            root.style.display = DisplayStyle.None;
-
-        descriptionUIDocument.gameObject.SetActive(false);
-    }
-
-    private void PlaceDescriptionNextToPlanet()
-    {
-        if (targetCamera == null || descriptionUIDocument == null) return;
-
-        if (SolarSystemFocus.Instance == null || SolarSystemFocus.Instance.pivot == null)
-        {
-            Debug.LogError("[PlanetQuiz] SolarSystemFocus.Instance hoặc pivot là NULL!");
-            return;
-        }
-
-        Vector3 planetPos = SolarSystemFocus.Instance.pivot.position;
-
-        descriptionUIDocument.transform.position = quizPanel.transform.position;
-
-        Vector3 dirToCamera = targetCamera.transform.position - descriptionUIDocument.transform.position;
-        descriptionUIDocument.transform.rotation = Quaternion.LookRotation(-dirToCamera.normalized);
-    }
 }
