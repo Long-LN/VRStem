@@ -2813,6 +2813,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackToMenuButton
       objectReference: {fileID: 0}
+    - target: {fileID: 5963882704204641591, guid: 3ee97df2703156a41a31ca3a562a9f65, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.028
+      objectReference: {fileID: 0}
     - target: {fileID: 6771179551536984877, guid: 3ee97df2703156a41a31ca3a562a9f65, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2843,7 +2847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6771179551536984877, guid: 3ee97df2703156a41a31ca3a562a9f65, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.5
+      value: 0.2846
       objectReference: {fileID: 0}
     - target: {fileID: 6771179551536984877, guid: 3ee97df2703156a41a31ca3a562a9f65, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2875,11 +2879,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6771179551536984877, guid: 3ee97df2703156a41a31ca3a562a9f65, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1.364
+      value: 1.449
       objectReference: {fileID: 0}
     - target: {fileID: 6771179551536984877, guid: 3ee97df2703156a41a31ca3a562a9f65, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.488
+      value: 0.652
       objectReference: {fileID: 0}
     - target: {fileID: 6771179551536984877, guid: 3ee97df2703156a41a31ca3a562a9f65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4769,6 +4773,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 82ed1094abbaaf94ca0c018a5d91cfc6, type: 3}
   - {fileID: 8300000, guid: ed15ff4c68b751b4680450a7075548d4, type: 3}
   - {fileID: 8300000, guid: 1ca76ad17d4d8824984e35cbdc78a5ed, type: 3}
+  stemTexts:
+  - {fileID: 241824850}
+  - {fileID: 816381469}
+  - {fileID: 1086230180}
+  - {fileID: 528889877}
 --- !u!4 &1802664841
 Transform:
   m_ObjectHideFlags: 0
