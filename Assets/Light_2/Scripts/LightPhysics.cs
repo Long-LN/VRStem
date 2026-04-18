@@ -220,11 +220,11 @@ public class LightPhysics : MonoBehaviour
 
                     break; // Cắt đứt hoàn toàn tia Trắng tại điểm Thoát, nhường sân khấu vinh quang cho 7 tia Tán sắc
                 }
-                else if (hit.collider.CompareTag("Mirror"))
-                {
-                    Vector3 reflectDir = Vector3.Reflect(incomingDir, normal);
-                    ray = new Ray(hit.point + reflectDir * 0.001f, reflectDir);
-                }
+                // else if (hit.collider.CompareTag("Mirror"))
+                // {
+                //     Vector3 reflectDir = Vector3.Reflect(incomingDir, normal);
+                //     ray = new Ray(hit.point + reflectDir * 0.001f, reflectDir);
+                // }
                 else if (hit.collider.CompareTag("Water"))
                 {
                     RefractiveMaterial rm = hit.collider.GetComponent<RefractiveMaterial>();
@@ -348,12 +348,13 @@ public class LightPhysics : MonoBehaviour
                     Vector3 currentDir = colorRay.direction;
                     Vector3 hitNormal = colorHit.normal;
 
-                    if (colorHit.collider.CompareTag("Mirror"))
-                    {
-                        Vector3 reflect = Vector3.Reflect(currentDir, hitNormal);
-                        colorRay = new Ray(colorHit.point + reflect * 0.001f, reflect);
-                    }
-                    else if (
+                    // if (colorHit.collider.CompareTag("Mirror"))
+                    // {
+                    //     Vector3 reflect = Vector3.Reflect(currentDir, hitNormal);
+                    //     colorRay = new Ray(colorHit.point + reflect * 0.001f, reflect);
+                    // }
+                    // else if (
+                    if (
                         colorHit.collider.CompareTag("Prism")
                         || colorHit.collider.CompareTag("Water")
                     )

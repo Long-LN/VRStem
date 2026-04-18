@@ -25,13 +25,18 @@ public class QuizAndInforManager : MonoBehaviour
         if (!isAnswered)
             StartCoroutine(ShowDelayQuiz());
         else
-            StartCoroutine(ShowDelayInfo(planetName)); // [SỬA] Gọi coroutine mới thay vì ShowInfo trực tiếp
+            StartCoroutine(ShowDelayInfo(planetName)); // Gọi coroutine mới thay vì ShowInfo trực tiếp
     }
 
     public void HidePanel(string planetName)
     {
         bigPlanetVisual = planetController.bigPlanets.Find(planet => planet.name == planetName);
-        bigPlanetVisual.HideInfo();
+        
+        // Đảm bảo ẩn InfoPanel đi khi cần
+        if (bigPlanetVisual != null && bigPlanetVisual.infoPanel != null)
+        {
+            bigPlanetVisual.infoPanel.SetActive(false);
+        }
     }
 
     IEnumerator ShowDelayQuiz()
@@ -41,21 +46,47 @@ public class QuizAndInforManager : MonoBehaviour
         PlanetQuiz.Instance.StartQuiz(smallPlanetVisual.planetName, smallPlanetVisual);
     }
 
-    // [THÊM MỚI] TH2: hành tinh đã trả lời → hiện info + phát sequence mô tả, không zoom out
+    // TH2: hành tinh đã trả lời → hiện info có chữ + phát thuyết minh + ẩn toàn bộ cụm slider
     IEnumerator ShowDelayInfo(string planetName)
     {
         yield return new WaitForSeconds(0.1f);
 
         Debug.Log($"[QuizAndInforManager] TH2 - Hiện info + phát thuyết minh cho: {planetName}");
 
-        // Hiện bảng thông tin
-        bigPlanetVisual.ShowInfo();
+        // 1. Dùng biến sliderPanel an toàn để ẩn khung
+        if (SolarSystemFocus.Instance != null && SolarSystemFocus.Instance.sliderPanel != null)
+            SolarSystemFocus.Instance.sliderPanel.SetActive(false);
 
-        // Phát sequence mô tả hành tinh, không có callback zoom out
+        // 2. Hiện InfoPanel trực tiếp
+        if (bigPlanetVisual != null && bigPlanetVisual.infoPanel != null)
+        {
+            bigPlanetVisual.infoPanel.SetActive(true);
+            
+            // 3. Gán nội dung thuyết minh vào TextMeshPro để không bị bảng trống
+            if (bigPlanetVisual.descriptionText != null)
+            {
+                bigPlanetVisual.descriptionText.text = bigPlanetVisual.description;
+            }
+
+            // [THÊM MỚI] Cho phép người dùng xoay hành tinh TO
+            if (PlanetRotator.Instance != null)
+                PlanetRotator.Instance.SetPlanet(bigPlanetVisual.model);
+
+            // [THÊM MỚI] Dừng script tự xoay để hành tinh đứng yên cho người dùng xoay
+            PlanetOrbit orbit = bigPlanetVisual.GetComponentInParent<PlanetOrbit>();
+            if (orbit != null) orbit.enabled = false;
+        }
+
+        // 4. Phát sequence mô tả hành tinh kèm callback chờ
         if (AnswerTrigger.Instance != null)
         {
             Debug.Log($"[QuizAndInforManager] Gọi AnswerTrigger.PlayDescription cho: {planetName}");
-            AnswerTrigger.Instance.PlayDescription(planetName);
+            AnswerTrigger.Instance.PlayDescription(planetName, () => 
+            {
+                // KHI AUDIO XONG: Hiện lại toàn bộ cụm khung xám của slider
+                if (SolarSystemFocus.Instance != null && SolarSystemFocus.Instance.sliderPanel != null)
+                    SolarSystemFocus.Instance.sliderPanel.SetActive(true);
+            });
         }
         else
         {

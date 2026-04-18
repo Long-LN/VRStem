@@ -26,10 +26,10 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadLightLab_0_WithEnvironment()
     {
-        // Bật cờ hiệu bên Manager trước
         StartEnvironmentManager.shouldAutoStart = true;
 
-        // Tiến hành load cảnh
+        SequenceSoundManager.skipIntro = true;
+
         SceneManager.LoadScene("LightLab_0");
     }
 }
