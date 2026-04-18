@@ -1,38 +1,4 @@
-﻿//using UnityEngine;
-//using TMPro;
-
-//public class VRReflectionUI : MonoBehaviour
-//{
-//    public TextMeshProUGUI angleInText;
-//    public TextMeshProUGUI angleOutText;
-
-//    void Update()
-//    {
-//        // UI luôn quay về phía camera (VR)
-//        if (Camera.main != null)
-//        {
-//            Transform cam = Camera.main.transform;
-//            transform.LookAt(cam);
-//            transform.Rotate(0, 180, 0);
-//        }
-//    }
-
-//    public void UpdateAngles(Vector3 incoming, Vector3 normal, Vector3 reflected)
-//    {
-//        float angleIn = Vector3.Angle(incoming, normal);
-//        float angleOut = Vector3.Angle(reflected, normal);
-
-//        angleInText.text = "Góc tới: " + angleIn.ToString("F1") + "°";
-//        angleOutText.text = "Góc phản xạ: " + angleOut.ToString("F1") + "°";
-//    }
-
-//    public void ShowUI(bool value)
-//    {
-//        gameObject.SetActive(value);
-//    }
-//}
-
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class VRReflectionUI : MonoBehaviour
@@ -58,15 +24,37 @@ public class VRReflectionUI : MonoBehaviour
     public int arcSegments = 20;
     public float arcRadius = 0.5f;
 
+    [Header("Colors (Bảng chọn màu)")]
+    public Color incomingColor = Color.yellow;
+    public Color normalColor = Color.red;
+    public Color reflectedColor = Color.green;
+
+    void Start()
+    {
+        ApplyColors();
+    }
+
     void Update()
     {
-        // UI quay về phía người chơi
         if (Camera.main != null)
         {
             Transform cam = Camera.main.transform;
             transform.LookAt(cam);
             transform.Rotate(0, 180, 0);
         }
+    }
+
+    void ApplyColors()
+    {
+        if (incomingLine != null) { incomingLine.startColor = incomingColor; incomingLine.endColor = incomingColor; }
+        if (normalLine != null) { normalLine.startColor = normalColor; normalLine.endColor = normalColor; }
+        if (reflectedLine != null) { reflectedLine.startColor = reflectedColor; reflectedLine.endColor = reflectedColor; }
+
+        if (incomingArc != null) { incomingArc.startColor = incomingColor; incomingArc.endColor = incomingColor; }
+        if (reflectedArc != null) { reflectedArc.startColor = reflectedColor; reflectedArc.endColor = reflectedColor; }
+
+        if (angleInText != null) angleInText.color = incomingColor;
+        if (angleOutText != null) angleOutText.color = reflectedColor;
     }
 
     public void UpdateAngles(Vector3 incoming, Vector3 normal, Vector3 reflected, Vector3 hitPos)
@@ -84,10 +72,8 @@ public class VRReflectionUI : MonoBehaviour
             hitPoint.position = hitPos;
         }
 
-        // ===== VẼ LINE =====
         DrawLines(incoming, normal, reflected);
 
-        // ===== VẼ ARC =====
         DrawArcs(incoming, normal, reflected, hitPos);
     }
 
