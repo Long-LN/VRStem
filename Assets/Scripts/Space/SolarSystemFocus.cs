@@ -14,6 +14,8 @@ public class SolarSystemFocus : MonoBehaviour
     
     [Header("UI Khung Slider")]
     public GameObject sliderPanel; // [THÊM MỚI] Chứa toàn bộ khung xám và text
+
+    public GameObject stemPanel;
     
     public float zoomSpeed = 1f;
     public float minScale;
@@ -92,6 +94,11 @@ public class SolarSystemFocus : MonoBehaviour
         if (pivot.lossyScale.x >= questionAppearScale && !showInfor)
         {
             if (currentPlanetVisual.planetName == "Sun") return;
+            if (stemPanel.activeInHierarchy)
+            {
+                stemPanel.SetActive(false);
+                SpaceManager.instance.StopAudio();
+            }
             quizAndInforManager.ShowPanel(currentPlanetVisual.planetName);
             showInfor = true;
         }

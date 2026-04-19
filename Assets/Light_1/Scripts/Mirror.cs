@@ -17,6 +17,26 @@ public class Mirror : OpticalElement
         LaserBeam outgoingLaserBeam = Instantiate(laserBeam.Prefab, transform);
         laserBeamPairs.Add(new LaserBeamPair(laserBeam, outgoingLaserBeam));
 
+        // 👉 ĐỒNG BỘ MÀU SẮC TỪ UI SANG TIA 3D
+        if (ui != null)
+        {
+            // Tìm component vẽ tia sáng của cái tia vừa đẻ ra
+            LineRenderer lr = outgoingLaserBeam.GetComponent<LineRenderer>();
+            if (lr != null)
+            {
+                // Đổi màu 2 đầu của tia sáng cho giống với màu Reflected Color trong UI
+                lr.startColor = ui.reflectedColor;
+                lr.endColor = ui.reflectedColor;
+
+                // (Tùy chọn) Đổi luôn màu của Material để đảm bảo nó phát sáng đúng màu
+                if (lr.material != null)
+                {
+                    lr.material.color = ui.reflectedColor;
+                    lr.material.SetColor("_EmissionColor", ui.reflectedColor * 2.5f); // Kích hoạt phát sáng (Bloom)
+                }
+            }
+        }
+
         // 👉 trigger bắt đầu bài học
         if (GameFlowManager.Instance.currentState == GameFlowManager.GameState.Idle)
         {

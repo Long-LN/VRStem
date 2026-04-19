@@ -184,43 +184,43 @@ public class ScenarioManager : MonoBehaviour
         {
             case 0:
                 menuBoardText.text =
-                    "<b>XIN CHÀO!</b>\n\nChào mừng bạn đến với phòng thí nghiệm vật lý ánh sáng thực tế ảo (VR).";
+                    "<b>XIN CHÀO!</b>\n\nChào mừng bạn đến với\nPhòng thí nghiệm vật lý ánh sáng thực tế ảo (VR).";
                 break;
             case 1:
                 menuBoardText.text =
-                    "<b>ĐẶT VẤN ĐỀ:</b>\n\nBạn có bao giờ nhìn thấy một chiếc đũa hoặc một vật thể đi vào trong nước bị \"gãy\" hoặc cong đi chưa?\n\nTại sao ánh sáng lại không đi thẳng như bình thường?";
+                    "<b>ĐẶT VẤN ĐỀ:</b>\n\nBạn có bao giờ nhìn thấy một chiếc đũa hoặc một vật thể\nkhi đi vào trong nước bị \"gãy\" hoặc cong đi chưa?\n\nTại sao ánh sáng lại không đi thẳng như bình thường?";
                 break;
             case 2:
                 menuBoardText.text =
-                    "<b>GIẢI THÍCH:</bn>\n\nĐó là do hiện tượng <b>Khúc Xạ Ánh Sáng</b>.\n\nKhi ánh sáng đi từ môi trường này sang môi trường khác (ví dụ: không khí → nước), tốc độ ánh sáng thay đổi làm tia sáng bị bẻ cong.\n\nĐịnh lý này được miêu tả bằng Định luật Snell.";
+                    "<b>GIẢI THÍCH:</b>\n\nĐó là do hiện tượng <b>Khúc Xạ Ánh Sáng</b>\n\nKhi ánh sáng đi từ môi trường này sang môi trường khác\n(ví dụ: không khí → nước), tốc độ ánh sáng thay đổi làm tia sáng\nbị bẻ cong. Định lý này được miêu tả bằng Định luật Snell.";
                 break;
             case 3:
                 menuBoardText.text =
-                    "<b>THỬ THÁCH 1: TÌM GÓC KHÚC XẠ</b>\n\nHãy dùng tay xoay đèn Laser chiếu vào Bể nước sao cho bắt được <b>góc khúc xạ r</b> ở nửa dưới mặt nước dao động trong khoảng <b>35° - 40°</b>.\n\n<i>Hệ thống tự động quét tia sáng của bạn...</i>";
+                    "<b>THỬ THÁCH 1: TÌM GÓC KHÚC XẠ</b>\n\nHãy dùng tay xoay đèn Laser chiếu vào bể nước sao cho bắt được <b>góc khúc xạ r</b> ở nửa dưới mặt nước dao động trong khoảng <b>35° - 40°</b>.\n\n<i>Hệ thống tự động quét tia sáng của bạn...</i>";
                 break;
             case 4:
                 menuBoardText.text =
-                    "<b>THỬ THÁCH 2: PHẢN XẠ TOÀN PHẦN</b>\n\n Hãy bấm nút để biến đổi chiết suất của Môi trường bên ngoài sao cho đặc hơn cả khối Nước (n Môi trường > n Nước).Và quan sát hiện tượng.";
+                    "<b>THỬ THÁCH 2: PHẢN XẠ TOÀN PHẦN</b>\n\nHãy bấm nút để biến đổi chiết suất của Môi trường bên ngoài sao cho\nđặc hơn cả khối Nước (n Môi trường > n Nước).Và quan sát hiện tượng.";
                 break;
             case 5:
                 menuBoardText.text =
-                    "<b>GIẢI THÍCH PHẢN XẠ TOÀN PHẦN:</b>\n\n Ánh sáng bị dội ngược lại như một tấm gương soi do nó muốn đi từ môi trường chiết suất Cao sang Thấp, nhưng lại va đập với ranh giới ở góc quá lớn khiến tia sáng bị dội ngược trở lại.\n(Đây là nguyên lý của cáp quang truyền Internet).";
+                    "<b>GIẢI THÍCH PHẢN XẠ TOÀN PHẦN:</b>\n\nÁnh sáng bị dội ngược lại như một tấm gương soi do nó muốn đi từ\nmôi trường chiết suất Cao sang Thấp, nhưng lại va đập với ranh giới\nở góc quá lớn khiến tia sáng bị dội ngược trở lại.\n(Đây là nguyên lý của cáp quang truyền Internet).";
                 break;
             case 6:
                 menuBoardText.text =
-                    "<b>ĐẶT VẤN ĐỀ:</b>\n\nBạn có bao giờ nhìn thấy Cầu vồng lấp lánh xuất hiện sau cơn mưa rào?\nHoặc ánh sáng trắng khi đi qua những lăng kính lại tách thành 7 màu lấp lánh?";
+                    "<b>ĐẶT VẤN ĐỀ:</b>\n\nBạn có bao giờ nhìn thấy cầu vồng lấp lánh xuất hiện sau cơn mưa rào?\nHoặc ánh sáng trắng khi đi qua những lăng kính\nlại tách thành 7 màu lấp lánh?";
                 break;
             case 7:
                 menuBoardText.text =
-                    "<b>GIẢI THÍCH TÁN SẮC:</b>\n\nHiện tượng này gọi là <b>Tán sắc ánh sáng</b>.\nÁnh sáng trắng thực chất gồm 7 dải màu gộp lại (Đỏ -> Tím).\nMỗi màu có tần số và mức độ bẻ cong khác nhau: Tím bẻ cong nhiều nhất, Đỏ bẻ cong ít nhất.\n Kết quả: Chúng tách rời nhau ra khi đi qua một môi trường khác";
+                    "<b>GIẢI THÍCH TÁN SẮC:</b>\n\nHiện tượng này gọi là <b>Tán sắc ánh sáng</b>.\nÁnh sáng trắng thực chất gồm 7 dải màu gộp lại (Đỏ -> Tím).\nMỗi màu có tần số và mức độ bẻ cong khác nhau:\nTím bẻ cong nhiều nhất, đỏ bẻ cong ít nhất.\nKết quả: Chúng tách rời nhau ra khi đi qua một môi trường khác";
                 break;
             case 8:
                 menuBoardText.text =
-                    "<b>THỰC HÀNH TÁN SẮC:</b>\n\n Hãy cầm đèn Laser và chiếu thẳng vào <b>Lăng Kính (Prism)</b>.\n\nQuan sát hiện tượng: Tán sắc ánh sáng!";
+                    "<b>THỰC HÀNH TÁN SẮC:</b>\n\nHãy cầm đèn Laser và chiếu thẳng vào <b>Lăng Kính (Prism)</b>.\n\nQuan sát hiện tượng: Tán sắc ánh sáng!";
                 break;
             case 9:
                 menuBoardText.text =
-                    "<b>KẾT THÚC BÀI HỌC!</b>\n\nBạn đã tự tay thực hành các thí nghiệm và quan sát các hiện tượng về khúc xạ ánh sáng. \n Cảm ơn bạn đã tham gia bài học này!\n Hãy quay lại menu để tham khảo các bài học khác nhé!";
+                    "<b>KẾT THÚC BÀI HỌC!</b>\n\nBạn đã tự tay thực hành các thí nghiệm và quan sát các hiện tượng\nvề khúc xạ ánh sáng.\nCảm ơn bạn đã tham gia bài học này!\nHãy quay lại menu để tham khảo các bài học khác nhé!";
                 break;
         }
     }

@@ -22,6 +22,11 @@ public class SpaceManager : MonoBehaviour
         GetComponent<SceneTrigger>().PlayIntro();
     }
 
+    public void StopAudio()
+    {
+        DialogueManager.Instance.StopSequence();
+    }
+
     public void EndGame()
     {
         GetComponent<SceneTrigger>().PlayOutro();

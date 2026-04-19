@@ -15,5 +15,9 @@ public class SceneTrigger : MonoBehaviour
     {
         DialogueManager.Instance.PlaySequence(outroSequence);
     }
-    
+
+    public void StopAudio()
+    {
+        
+    }
 }

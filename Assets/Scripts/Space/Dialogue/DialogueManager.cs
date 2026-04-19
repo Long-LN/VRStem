@@ -10,6 +10,11 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake() { Instance = this; }
 
+    public void StopSequence()
+    {
+        audioSource.Stop();
+    }
+
     // Hàm gọi để bắt đầu chuỗi hội thoại
     public void PlaySequence(DialogueSequenceSO sequence)
     {

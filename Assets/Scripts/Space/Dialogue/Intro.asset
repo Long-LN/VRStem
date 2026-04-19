@@ -15,7 +15,7 @@ MonoBehaviour:
   segments:
   - subTitle: Example Script 1
     voiceClip: {fileID: 8300000, guid: 6e07ba66085d12842a0c16ff4a2c7d46, type: 3}
-    delayAfter: 2
+    delayAfter: 0.5
   - subTitle: Example Script 2
     voiceClip: {fileID: 8300000, guid: 7b9316ab67acef44980b429cea931aa7, type: 3}
     delayAfter: 0
